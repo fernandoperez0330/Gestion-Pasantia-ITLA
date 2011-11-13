@@ -1,0 +1,25 @@
+Gestion de pasantia version 1.0
+
+Changelogs
+	v1.0: creacion del proyecto
+
+Descripcion
+	
+	
+Desarrolladores
+	-Fernando Perez
+	-Jansel Valentin
+	-Glory Hignacio
+
+Requirimientos
+	
+	-Servidor: apache (con soporte para php 2.2.* o mayor) y MySQL (5.* o mayor)
+	-Cliente:Navegador firefox (3 o mayor), chrome o internet explorer (8 o mayor) habilitado el javascript
+
+Componentes utilizados
+	-PHP 5.2
+	-MySQL 5
+	-libreria: jquery version 1.7
+	-libreria: PEAR phpDocumentor 1.2
+	
+Instituto Tecnologico Las Americas (ITLA)
