@@ -1,11 +1,9 @@
 <?php
 require_once('config/Config.php');
-require_once('config/Conexion.php');
-$title = "Pagina Principal";
+$title = "Panel de control";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
 $meta['description'] = "";
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -32,13 +30,8 @@ $meta['description'] = "";
                 ?>
             </div>
             <div id="site_content">
-                <?php include("views/sidebar.html"); ?>
-                <div id="content">
-                    <!--aqui va el contenido dinamico-->
-                </div>
-                <?php include("views/socialnetworks.html"); ?>
+                <?php include("views/modules/ControlPanelAdmin.php"); ?>
             </div>
-            
             <?php include("views/footer.html"); ?>
         </div>
     </body>
