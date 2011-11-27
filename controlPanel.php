@@ -30,7 +30,7 @@ $meta['description'] = "";
                 ?>
             </div>
             <div id="site_content">
-                <?php include("views/modules/controlPanelAdmin.php"); ?>
+                <?php include("views/modules/ControlPanelAdmin.php"); ?>
             </div>
             <?php include("views/footer.html"); ?>
         </div>
