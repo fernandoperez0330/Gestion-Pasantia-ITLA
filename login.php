@@ -4,7 +4,6 @@ $title = "Inicio de Sesion";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
 $meta['description'] = "";
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -32,7 +31,8 @@ $meta['description'] = "";
             </div>
             <div id="site_content">
                 <div id="content">
-                    <!--aqui va el contenido dinamico-->
+                    <?php include("views/modules/registerStudents.php"); ?>
+                    <?php include("views/modules/login.php"); ?>
                 </div>
             </div>
             <?php include("views/footer.html"); ?>

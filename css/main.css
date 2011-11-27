@@ -156,10 +156,16 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover
 
 #site_content
 { width: 837px;
+  min-height:500px;
   overflow: hidden;
   margin: 0 auto 0 auto;
   padding: 20px 24px 20px 37px;
-  background: #FFF url(../resources/content.png) repeat-y;} 
+  background: #FFF url(../resources/content.png) repeat-y;
+} 
+
+#socialnetworks{
+    clear:both;
+}
 
 .sidebar
 { float: right;
@@ -187,7 +193,8 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover
 #content
 { text-align: left;
   width: 595px;
-  padding: 0;}
+  padding: 0;
+}
 
 #content ul
 { margin: 2px 0 22px 0px;}
@@ -294,3 +301,19 @@ table tr td
 { background: #F0EFE2;
   color: #47433F;
   border-top: 1px solid #FFF;}
+
+/*login*/
+#registerarea{
+    float:left;
+    width:425px;
+}
+
+#loginarea{
+    margin-left:425px;
+}
+
+.breadscrumbs{
+    padding:0px;
+    margin:0px;
+    
+}
