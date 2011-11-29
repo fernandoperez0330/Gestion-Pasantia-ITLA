@@ -5,6 +5,23 @@ html
 { margin: 0;
   padding: 0;}
 
+input[type='submit'] , input[type='button'],button
+{
+    font-family :Verdana ,Helvetica;
+    font-weight : bold;
+    font-size : 10px;
+    color : #fff;
+    background-color : #638cfa;    
+    border: 0px;
+    width:80px;
+    height:30px;
+    border-radius : 6px;
+}
+input[type='submit']:hover, input[type='button']:hover,button:hover
+{
+    background-color : #637fff; 
+}
+
 body
 { font: normal .80em 'trebuchet ms', arial, sans-serif;
   background: #F0EFE2;
