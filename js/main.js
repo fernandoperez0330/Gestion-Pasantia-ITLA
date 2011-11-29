@@ -8,7 +8,18 @@ $(document).ready(function(){
         $("#areacompaniesmanager").ready(function(){
             loadajaxcontent('views/modules/CompaniesLists.php', 'get','',$('.ajaxloader'),$("#areacompaniesmanager"));
         });
-    } 
+    }
+    
+    /**
+     * area para las Carreras
+     **/
+    if( $("#areacareersmanager").length)
+    {
+        $("#areacareersmanager").ready( function()
+                                       {
+                loadajaxcontent('views/modules/CareersList.php','get','',$('.ajaxloader'),$("#areacareersmanager") );                                      
+                                       });
+    }
    
     /************************************************************************/
     /******************************formularios*******************************/
