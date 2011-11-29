@@ -1,8 +1,8 @@
 <?php
-require_once("../../config/Config.php");
-require_once("../../config/Conexion.php");
-require_once("../../models/Model.php");
-require_once("../../models/ModelCompanies.php");
+define("URLROOT","../../");
+require(URLROOT . "include/main.inc.php");
+require(URLROOT . "Models/Model.php");
+require(URLROOT . "Models/ModelCompanies.php");
 $model = new ModelCompanies();
 $arrCompanies = $model->findsome(array());
 

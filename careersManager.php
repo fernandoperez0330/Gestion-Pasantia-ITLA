@@ -1,5 +1,12 @@
 <?php
-require_once('config/Config.php');
+require("include/main.inc.php");
+
+//solo para administradores
+$validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']],1);
+if (!$validateUser->validateLevel()){
+    die("<script type=\"text/javascript\">alert('No tiene autorizacion para estar aqui');location.href='index.php'</script>");
+}
+
 $title = "Administrador de Carreras";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";

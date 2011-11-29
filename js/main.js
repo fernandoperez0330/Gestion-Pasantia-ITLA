@@ -16,9 +16,9 @@ $(document).ready(function(){
     if( $("#areacareersmanager").length)
     {
         $("#areacareersmanager").ready( function()
-                                       {
-                loadajaxcontent('views/modules/CareersList.php','get','',$('.ajaxloader'),$("#areacareersmanager") );                                      
-                                       });
+        {
+            loadajaxcontent('views/modules/CareersList.php','get','',$('.ajaxloader'),$("#areacareersmanager") );                                      
+        });
     }
    
     /************************************************************************/
@@ -48,9 +48,11 @@ $(document).ready(function(){
                 dataType: 'JSON',
                 beforeSend:function(){
                     $(domloading).html("Cargando...");
+                },error:function(data,tipo,error){
+                    $(domloading).html("Ocurrio un error, favor intentar de nuevo");
                 },
                 success: function(data){
-                    $(domloading).html("");
+                   $(domloading).html("");
                     if (!data['return']) {
                         alert('login incorrecto');
                     }else

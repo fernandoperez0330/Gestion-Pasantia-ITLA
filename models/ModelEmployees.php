@@ -1,27 +1,23 @@
 <?php
 /**
- * Clase para el modelo de compania, extiende de la clase {@link Model} 
- * @version 1.0
+ * clase para modelos de los empleados (adminsitradores)
  * @author Fernando Perez
+ * @version 1.0
  */
-class ModelCompanies extends Model {
+class ModelEmployees extends Model{
     
     public function __construct() {
         parent::__construct();
     }
-    
+
     public function add($model) {
-        
-        //depurar los datos antes de ponerlo en la consulta
         $model['nombre'] = htmlentities($model['nombre']);
-        $model['descripcion'] = htmlentities($model['descripcion']);
-        $model['direccion']= htmlentities($model['direccion']);
-        $model['telefono1']= htmlentities($model['telefono1']);
-        $model['telefono2']= htmlentities($model['telefono2']);
+        $model['apellido'] = htmlentities($model['apellido']);
         $model['correo']= htmlentities($model['correo']);
+        $model['telefono']= htmlentities($model['telefono']);
         
-        $query = "INSERT INTO {$this->con->prefTable}EMPRESAS(NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO) ".
-                 "VALUES('{$model['nombre']}','{$model['descripcion']}','{$model['direccion']}','{$model['telefono1']}','{$model['telefono2']}','{$model['correo']}')";
+        $query = "INSERT INTO {$this->con->prefTable}EMPLEADOS(NOMBRE,APELLIDO,CORREO,TELEFONO) ".
+                 "VALUES('{$model['nombre']}','{$model['apellido']}','{$model['correo']}','{$model['telefono1']}')";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
@@ -33,7 +29,7 @@ class ModelCompanies extends Model {
 
     public function delete($model) {
         $model['ID'] = $model['ID'] + 0;
-        $query = "DELETE FROM {$this->con->prefTable}EMPRESAS WHERE ID = {$model['ID']}"; 
+        $query = "DELETE FROM {$this->con->prefTable}EMPLEADOS WHERE ID = {$model['ID']}"; 
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -44,15 +40,15 @@ class ModelCompanies extends Model {
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}EMPRESAS WHERE ID=$prkey";
+        $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}EMPLEADOS WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
             return false;
         }
-        $company = array();
+        $employee = array();
         $numRows = mysql_num_rows($result);
-        if ($numRows != 0) $company = mysql_fetch_assoc ($result);
-        return $company;
+        if ($numRows != 0) $employee = mysql_fetch_assoc ($result);
+        return $employee;
     }
 
     public function findsome($arrBy) {
@@ -62,30 +58,28 @@ class ModelCompanies extends Model {
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}EMPRESAS $where";
+        $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}EMPLEADOS $where";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             return false;
         }
         $numRows = mysql_num_rows($result);
-        $arrCompanies = array();
+        $arrEmployees = array();
         if ($numRows != 0){
             while ($row = mysql_fetch_assoc($result)){
-                $arrCompanies[] = $row;
+                $arrEmployees[] = $row;
             }
         }
-        return $arrCompanies;
+        return $arrEmployees; $employee = mysql_fetch_assoc ($result);
     }
 
     public function update($model) {
         $model['nombre'] = htmlentities($model['nombre']);
-        $model['descripcion'] = htmlentities($model['descripcion']);
-        $model['direccion']= htmlentities($model['direccion']);
-        $model['telefono1']= htmlentities($model['telefono1']);
-        $model['telefono2']= htmlentities($model['telefono2']);
+        $model['apellido'] = htmlentities($model['apellido']);
         $model['correo']= htmlentities($model['correo']);
+        $model['telefono']= htmlentities($model['telefono']);
         
-        $query = "UPDATE {$this->con->prefTable}EMPRESAS SET NOMBRE = '{$model['nombre']}',DESCRIPCION = '{$model['descripcion']}',DIRECCION='{$model['direccion']}',TELEFONO1='{$model['telefono1']}',TELEFONO2='{$model['telefono2']}',CORREO='{$model['correo']}' WHERE ID={$model['id']}";
+        $query = "UPDATE {$this->con->prefTable}EMPLEADOS SET NOMBRE = '{$model['nombre']}',APELLIDO = '{$model['apellido']}',CORREO='{$model['correo']}',TELEFONO='{$model['telefono']}' WHERE ID={$model['id']}";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
@@ -94,5 +88,7 @@ class ModelCompanies extends Model {
         if (mysql_affected_rows(conexion::$link) == 0) return false;
         else return true;
     }
+
 }
+
 ?>

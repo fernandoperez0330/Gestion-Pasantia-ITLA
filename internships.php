@@ -1,5 +1,5 @@
 <?php
-require_once('config/Config.php');
+require("include/main.inc.php");
 $title = "Pasantias";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";

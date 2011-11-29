@@ -38,27 +38,38 @@ class ModelUsers extends Model {
      * @return boolean: determina si existe este login o no
      */
     public function login($username, $password) {
-        return true;
         $username = mysql_real_escape_string($username);
-        $query = "SELECT ID,USUARIO,CLAVE FROM " . $this->con->prefTable . "Usuarios WHERE USUARIO='$username'";
-        $result = mysql_query($query, $this->con);
+        $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM " . $this->con->prefTable . "Usuarios WHERE USUARIO='$username'";
+        $result = mysql_query($query, Conexion::$link);
         if (!$result)
             return false;
-        if (mysql_fetch_row($result) != 0) {
-            $row = mysql_fetch_array($result);
-            $fetchpassword = $row[2];
-            return $password == $fetchpassword;
+        if (mysql_num_rows($result) != 0) {
+            $row = mysql_fetch_assoc($result);
+            $fetchpassword = $row['CLAVE'];
+            $password = Utils::encryptPassword($password);
+            if ($password == $fetchpassword){
+                $this->setsession($row);
+                return true;
+            }
         }
     }
 
     /**
-     * 
-     * 
+     * funcion que sete la session que requiere de usuarios
+     * @param   array   $arrUser : arreglo con los datos del usuario
+     * @return  array            :  arreglo con los datos seteados
      */
-    public function setsession() {
-        
+    public function setsession($arrUser) {
+        $arrReturn = array();
+        if ($arrUser && is_array($arrUser)){
+            foreach($arrUser as $k=>$v){
+                $k = strtolower($k);
+                $arrReturn[$k] = $v;
+            }
+            $_SESSION[Config::$arrKeySession['user']] = $arrReturn;
+        }
+        return $arrReturn;
     }
-
 }
 
 ?>

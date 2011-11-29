@@ -13,23 +13,23 @@ $(document).ready(function(){
     if( $(".eliminar").length )
     {
         $(".eliminar").click( function( e )
-                             {
-                                e.preventDefault();
-                                $.ajax({
-                                    url:$(this).attr('id'),
-                                    type:'post',
-                                    dataType:'JSON',
-                                    beforeSend:function()
-                                    {
-                                        $(".ajaxloader").html( "Cargando..." );
-                                    },
-                                    success:function( data )
-                                    {
-                                        $(".ajaxloader").html( "" );
+        {
+            e.preventDefault();
+            $.ajax({
+                url:$(this).attr('id'),
+                type:'post',
+                dataType:'JSON',
+                beforeSend:function()
+                {
+                    $(".ajaxloader").html( "Cargando..." );
+                },
+                success:function( data )
+                {
+                    $(".ajaxloader").html( "" );
                                         
-                                    }
-                                       })
-                             })
+                }
+            })
+        })
     }
 
 
@@ -83,29 +83,36 @@ $(document).ready(function(){
                     $('.ajaxloader').html("Cargando...");
                 },
                 success: function(data){
-                   $('.ajaxloader').html("");
-                   if (data['return']) {
-                     alert('La empresa ha sido actualizada correctamente');
-                     $(".ajaxredirect").click();
-                   }else alert('La empresa no ha podido ser actualizada  correctamente');
+                    $('.ajaxloader').html("");
+                    if (data['return']) {
+                        alert('La empresa ha sido actualizada correctamente');
+                        $(".ajaxredirect").click();
+                    }else alert('La empresa no ha podido ser actualizada  correctamente');
                 }
             }); 
         } else{
             //cuando sea agregar        
             $.ajax({
-                url: $(this).attr('action'),
+                url:  $(this).attr('action'),
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
+                cache: false,
                 dataType: 'JSON',
                 beforeSend:function(){
                     $('.ajaxloader').html("Cargando...");
                 },
+                error: function(data,type,error){
+                    alert(data);
+                    alert(type);
+                    alert(error);
+                },
                 success: function(data){
-                   $('.ajaxloader').html("");
-                   if (data['return']) {
-                       alert('La empresa ha sido agregada correctamente');
-                      $(".ajaxredirect").click();
-                   }else alert('La empresa no ha podido ser agregada correctamente');
+                    $('.ajaxloader').html("");
+                    alert(data);
+                /*if (data['return']) {
+                        alert('La empresa ha sido agregada correctamente');
+                        $(".ajaxredirect").click();
+                    }else alert('La empresa no ha podido ser agregada correctamente');*/
                 }
             }); 
         } 
@@ -115,72 +122,74 @@ $(document).ready(function(){
     /**************Formulario de Carreras*************/
     
     $("#frmCareerEditor").submit( function( e )
-                                 {
-                if($("#nombre").val()=="")
+    {
+        if($("#nombre").val()=="")
+        {
+            e.preventDefault();
+            $("#nombre").focus();
+            alert( "El nombre es requerido" );
+            return;
+        }
+        if( $("#descripcion").val()=="" )
+        {
+            e.preventDefault();
+            $("#descripcion").focus();
+            alert( "Es requerida una descripcion para la carrera" );
+            return; 
+        }
+        if( $("#modificar").length )
+        {                    
+            $.ajax( {
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize(),
+                dataType : "JSON",    
+                beforeSend: function()
                 {
-                    e.preventDefault();
-                    $("#nombre").focus();
-                    alert( "El nombre es requerido" );
-                    return;
-                }
-                if( $("#descripcion").val()=="" )
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                success: function( data )
                 {
-                    e.preventDefault();
-                    $("#descripcion").focus();
-                    alert( "Es requerida una descripcion para la carrera" );
-                    return; 
+                    $(".ajaxloader").html( "" );                            
+                    if( data.return)
+                    {
+                        alert( "la carrera ha sido actualizada exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "la carrera no ha sido actualizada correctamente" );
                 }
-                if( $("#modificar").length )
-                {                    
-                    $.ajax( {
-                        url : $( this ).attr( 'action' ),
-                        type: $( this ).attr( 'method' ),
-                        data: $( this ).serialize(),
-                        dataType : "JSON",
                         
-                        beforeSend: function()
-                        {
-                            $(".ajaxloader").html( "Cargando..." )
-                        },
-                        success: function( data )
-                        {
-                            $(".ajaxloader").html( "" );                            
-                            if( data.return )
-                            {
-                                alert( "la carrera ha sido actualizada exitosamente" );
-                                $(".ajaxredirect").click();
-                            }else
-                               alert( "la carrera no ha sido actualizada correctamente" );
-                        }
-                        
-                            });
+            });
+        }
+        else
+        {                    
+            $.ajax( {                        
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize(),
+                //dataType : "JSON",                        
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                error: function(data,type,error){
+                   alert(error); 
+                },
+                success: function( data )
+                {                            
+                    $(".ajaxloader").html( "" );
+                    if( data.return )
+                    {
+                        alert( "la carrera ha sido agregada exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "la carrera no ha sido agregada correctamente" );
                 }
-                else
-                {                    
-                    $.ajax( {                        
-                        url : $( this ).attr( 'action' ),
-                        type: $( this ).attr( 'method' ),
-                        data: $( this ).serialize(),
-                        dataType : "JSON",                        
-                        beforeSend: function()
-                        {
-                            $(".ajaxloader").html( "Cargando..." )
-                        },
-                        success: function( data )
-                        {                            
-                            $(".ajaxloader").html( "" );
-                            if( data.return )
-                            {
-                                alert( "la carrera ha sido agregada exitosamente" );
-                                $(".ajaxredirect").click();
-                            }else
-                               alert( "la carrera no ha sido agregada correctamente" );
-                        }
                         
-                            });                    
-                }
-                return false;
-                                 })
+            });                    
+        }
+        return false;
+    })
     
     
     
