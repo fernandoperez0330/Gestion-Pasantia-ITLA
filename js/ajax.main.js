@@ -13,6 +13,15 @@ $(document).ready(function(){
     if( $(".eliminar").length )
     {
         $(".eliminar").click( function( e )
+<<<<<<< HEAD
+                             {
+                                if( confirm( "Desea realmnte eliminar es ta carrera ?" ) )
+                                {   
+                                return true; 
+                                }
+                                return false;
+                             });
+=======
         {
             e.preventDefault();
             $.ajax({
@@ -30,6 +39,7 @@ $(document).ready(function(){
                 }
             })
         })
+>>>>>>> origin/master
     }
 
 
