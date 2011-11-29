@@ -5,7 +5,6 @@
  * @version 1.0
  * @author Fernando Perez
  */
-
 class ModelUsers extends Model {
 
     public function __construct() {
@@ -13,84 +12,85 @@ class ModelUsers extends Model {
     }
 
     public function add($model) {
-                        //depurar los datos antes de ponerlo en la consulta
-        $model[ 'usuario' ] = htmlentities($model[ 'usuario' ]);
-        $model[ 'clave' ] = htmlentities( $model[ 'clave' ] );
-        $model[ 'tipo' ] = htmlentities( $model[ 'tipo' ] );
-        
-        $query = "INSERT INTO {$this->con->prefTable} USUARIOS(USUARIO,CLAVE,TIPO) ".
-                 "VALUES('{$model['usuario']}','{$model['clave']}',$model[ 'tipo' ])";
-        $result = mysql_query($query,conexion::$link);
-        if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+        //depurar los datos antes de ponerlo en la consulta
+        $model['usuario'] = htmlentities($model['usuario']);
+        $model['clave'] = htmlentities($model['clave']);
+        $model['tipo'] = htmlentities($model['tipo']);
+
+        $query = "INSERT INTO {$this->con->prefTable} USUARIOS(USUARIO,CLAVE,TIPO) " .
+                "VALUES('{$model['usuario']}','{$model['clave']}','{$model[ 'tipo']}')";
+        $result = mysql_query($query, conexion::$link);
+        if (!$result) {
+            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
             return false;
         }
         if (mysql_affected_rows(conexion::$link))
-        return true;
-        return  false;
+            return true;
+        return false;
     }
 
     public function delete($model) {
         $model['id'] = $model['id'] + 0;
-        $query = "DELETE FROM {$this->con->prefTable}USUARIOS WHERE ID = {$model['id']}"; 
+        $query = "DELETE FROM {$this->con->prefTable}USUARIOS WHERE ID = {$model['id']}";
         $result = mysql_query($query);
-        if(!$result){
+        if (!$result) {
             return false;
         }
         if (mysql_affected_rows(conexion::$link))
-        return true;
-        return  false;        
+            return true;
+        return false;
     }
 
     public function find($prkey) {
         $prkey = $prkey + 0;
         $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM {$this->con->prefTable}USUARIOS WHERE ID=$prkey";
         $result = mysql_query($query);
-        if(!$result){
+        if (!$result) {
             return false;
         }
-        $carreras = array(); 
+        $carreras = array();
         $numRows = mysql_num_rows($result);
-        if ($numRows != 0) $carreras = mysql_fetch_assoc ($result);
-        return $carreras;         
+        if ($numRows != 0)
+            $carreras = mysql_fetch_assoc($result);
+        return $carreras;
     }
 
     public function findsome($arrBy) {
         $where = "";
-        foreach($arrBy as $field=>$value){
+        foreach ($arrBy as $field => $value) {
             $value = htmlentities($value);
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
         $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM {$this->con->prefTable}USUARIOS $where";
-        $result = mysql_query($query,conexion::$link);
-        if(!$result){
+        $result = mysql_query($query, conexion::$link);
+        if (!$result) {
             return false;
         }
         $numRows = mysql_num_rows($result);
         $arrCarreras = array();
-        if ($numRows != 0){
-            while ($row = mysql_fetch_assoc($result)){
+        if ($numRows != 0) {
+            while ($row = mysql_fetch_assoc($result)) {
                 $arrCarreras[] = $row;
             }
         }
-        return $arrCarreras;          
+        return $arrCarreras;
     }
 
     public function update($model) {
-        $model[ 'usuario' ] = htmlentities($model[ 'usuario' ]);
-        $model[ 'clave' ] = htmlentities( $model[ 'clave' ] );
-        $model[ 'tipo' ] = htmlentities( $model[ 'tipo' ] );
-        
-        $query = "UPDATE {$this->con->prefTable}USUARIOS SET USUARIO = '{$model['usuario']}',CLAVE = '{$model['clave']}',TIPO=$model[ 'tipo' ] WHERE ID={$model['id']}";
-        $result = mysql_query($query,conexion::$link);
-        if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+        $model['usuario'] = htmlentities($model['usuario']);
+        $model['clave'] = htmlentities($model['clave']);
+        $model['tipo'] = htmlentities($model['tipo']);
+
+        $query = "UPDATE {$this->con->prefTable}USUARIOS SET USUARIO = '{$model['usuario']}',CLAVE = '{$model['clave']}',TIPO={$model[ 'tipo' ]} WHERE ID={$model['id']}";
+        $result = mysql_query($query, conexion::$link);
+        if (!$result) {
+            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
             return false;
         }
         if (mysql_affected_rows(conexion::$link))
-        return true;
-        return  false;         
+            return true;
+        return false;
     }
 
     /**
@@ -109,7 +109,7 @@ class ModelUsers extends Model {
             $row = mysql_fetch_assoc($result);
             $fetchpassword = $row['CLAVE'];
             $password = Utils::encryptPassword($password);
-            if ($password == $fetchpassword){
+            if ($password == $fetchpassword) {
                 $this->setsession($row);
                 return true;
             }
@@ -123,8 +123,8 @@ class ModelUsers extends Model {
      */
     public function setsession($arrUser) {
         $arrReturn = array();
-        if ($arrUser && is_array($arrUser)){
-            foreach($arrUser as $k=>$v){
+        if ($arrUser && is_array($arrUser)) {
+            foreach ($arrUser as $k => $v) {
                 $k = strtolower($k);
                 $arrReturn[$k] = $v;
             }
@@ -132,6 +132,7 @@ class ModelUsers extends Model {
         }
         return $arrReturn;
     }
+
 }
 
 ?>
