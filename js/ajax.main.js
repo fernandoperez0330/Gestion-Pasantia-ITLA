@@ -102,17 +102,13 @@ $(document).ready(function(){
                     $('.ajaxloader').html("Cargando...");
                 },
                 error: function(data,type,error){
-                    alert(data);
-                    alert(type);
-                    alert(error);
                 },
                 success: function(data){
                     $('.ajaxloader').html("");
-                    alert(data);
-                /*if (data['return']) {
+                    if (data['return']) {
                         alert('La empresa ha sido agregada correctamente');
                         $(".ajaxredirect").click();
-                    }else alert('La empresa no ha podido ser agregada correctamente');*/
+                    }else alert('La empresa no ha podido ser agregada correctamente');
                 }
             }); 
         } 
@@ -173,7 +169,7 @@ $(document).ready(function(){
                     $(".ajaxloader").html( "Cargando..." )
                 },
                 error: function(data,type,error){
-                   alert(error); 
+                    alert(error); 
                 },
                 success: function( data )
                 {                            
