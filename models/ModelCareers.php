@@ -30,7 +30,7 @@ class ModelCareers extends Model{
 
     public function delete($model) {
         $model['id'] = $model['id'] + 0;
-        $query = "DELETE FROM {$this->con->prefTable}CARRERAS WHERE ID = {$model['id']}"; 
+        $query = "DELETE FROM {$this->con->prefTable}carreras WHERE ID = {$model['id']}"; 
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -42,7 +42,7 @@ class ModelCareers extends Model{
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}CARRERAS WHERE ID=$prkey";
+        $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}carreras WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
@@ -62,7 +62,7 @@ class ModelCareers extends Model{
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}CARRERAS $where";
+        $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}carreras $where";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
@@ -83,7 +83,7 @@ class ModelCareers extends Model{
         $model['nombre'] = htmlentities($model['nombre']);
         $model['descripcion'] = htmlentities($model['descripcion']);
         
-        $query = "UPDATE {$this->con->prefTable}CARRERAS SET NOMBRE = '{$model['nombre']}',DESCRIPCION = '{$model['descripcion']}' WHERE ID={$model['id']}";
+        $query = "UPDATE {$this->con->prefTable}carreras SET NOMBRE = '{$model['nombre']}',DESCRIPCION = '{$model['descripcion']}' WHERE ID={$model['id']}";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);

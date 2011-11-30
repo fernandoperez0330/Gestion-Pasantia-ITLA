@@ -16,7 +16,7 @@ class ModelEmployees extends Model{
         $model['correo']= htmlentities($model['correo']);
         $model['telefono']= htmlentities($model['telefono']);
         
-        $query = "INSERT INTO {$this->con->prefTable}EMPLEADOS(NOMBRE,APELLIDO,CORREO,TELEFONO) ".
+        $query = "INSERT INTO {$this->con->prefTable}empleados(NOMBRE,APELLIDO,CORREO,TELEFONO) ".
                  "VALUES('{$model['nombre']}','{$model['apellido']}','{$model['correo']}','{$model['telefono1']}')";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
@@ -29,7 +29,7 @@ class ModelEmployees extends Model{
 
     public function delete($model) {
         $model['ID'] = $model['ID'] + 0;
-        $query = "DELETE FROM {$this->con->prefTable}EMPLEADOS WHERE ID = {$model['ID']}"; 
+        $query = "DELETE FROM {$this->con->prefTable}empleados WHERE ID = {$model['ID']}"; 
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -40,7 +40,7 @@ class ModelEmployees extends Model{
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}EMPLEADOS WHERE ID=$prkey";
+        $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}empleados WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -58,7 +58,7 @@ class ModelEmployees extends Model{
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}EMPLEADOS $where";
+        $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}empleados $where";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             return false;
@@ -79,7 +79,7 @@ class ModelEmployees extends Model{
         $model['correo']= htmlentities($model['correo']);
         $model['telefono']= htmlentities($model['telefono']);
         
-        $query = "UPDATE {$this->con->prefTable}EMPLEADOS SET NOMBRE = '{$model['nombre']}',APELLIDO = '{$model['apellido']}',CORREO='{$model['correo']}',TELEFONO='{$model['telefono']}' WHERE ID={$model['id']}";
+        $query = "UPDATE {$this->con->prefTable}empleados SET NOMBRE = '{$model['nombre']}',APELLIDO = '{$model['apellido']}',CORREO='{$model['correo']}',TELEFONO='{$model['telefono']}' WHERE ID={$model['id']}";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);

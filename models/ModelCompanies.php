@@ -20,7 +20,7 @@ class ModelCompanies extends Model {
         $model['telefono2']= htmlentities($model['telefono2']);
         $model['correo']= htmlentities($model['correo']);
         
-        $query = "INSERT INTO {$this->con->prefTable}EMPRESAS(NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO) ".
+        $query = "INSERT INTO {$this->con->prefTable}empresas(NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO) ".
                  "VALUES('{$model['nombre']}','{$model['descripcion']}','{$model['direccion']}','{$model['telefono1']}','{$model['telefono2']}','{$model['correo']}')";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
@@ -33,7 +33,7 @@ class ModelCompanies extends Model {
 
     public function delete($model) {
         $model['id'] = $model['id'] + 0;
-        $query = "DELETE FROM {$this->con->prefTable}EMPRESAS WHERE ID = {$model['id']}"; 
+        $query = "DELETE FROM {$this->con->prefTable}empresas WHERE ID = {$model['id']}"; 
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -44,7 +44,7 @@ class ModelCompanies extends Model {
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}EMPRESAS WHERE ID=$prkey";
+        $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}empresas WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -62,7 +62,7 @@ class ModelCompanies extends Model {
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}EMPRESAS $where";
+        $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}empresas $where";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             return false;

@@ -20,7 +20,7 @@ class ModelInternship extends Model {
         foreach($model['carreras'] as $k=>$v)
             $model['carreras'][$k] = $v + 0;
 
-        $query = "INSERT INTO {$this->con->prefTable}PASANTIAS(NOMBRE,EMPRESA_ID,FECHA_CREACION) " .
+        $query = "INSERT INTO {$this->con->prefTable}pasantias(NOMBRE,EMPRESA_ID,FECHA_CREACION) " .
                 "VALUES('{$model['nombre']}','{$model['empresa_id']}',{$model['fecha_creacion']})";
         $result = mysql_query($query, conexion::$link);
         if (!$result) {
@@ -36,7 +36,7 @@ class ModelInternship extends Model {
                     $values .= ",";
                 $values .= "($pasantia_id,$carrera_id)";
             }
-            $query = "INSERT INTO {$this->con->prefTable}Pasantias_Carreras(PASANTIA_ID,CARRERA_ID)" .
+            $query = "INSERT INTO {$this->con->prefTable}pasantias_carreras(PASANTIA_ID,CARRERA_ID)" .
                     " VALUES $values";
             $result = mysql_query($query);
             if (!$result)
@@ -52,7 +52,7 @@ class ModelInternship extends Model {
      * @return  array   
      */
     public function getCareers($prkey){
-        $query = "SELECT CARRERA_ID FROM {$this->con->prefTable}Pasantias_Carreras where PASANTIA_ID={$prkey}";
+        $query = "SELECT CARRERA_ID FROM {$this->con->prefTable}pasantias_carreras where PASANTIA_ID={$prkey}";
         $result = mysql_query($query);
         if (!$result){
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -70,13 +70,13 @@ class ModelInternship extends Model {
     public function delete($model) {
         $model['id'] = $model['id'] + 0;
         //eliminar las carreras de la tabla enlace antes de borrar el registro
-        $query = "DELETE FROM {$this->con->prefTable}Pasantias_Carreras WHERE PASANTIA_ID = {$model['id']}";
+        $query = "DELETE FROM {$this->con->prefTable}pasantias_carreras WHERE PASANTIA_ID = {$model['id']}";
         $result = mysql_query($query);
         if (!$result) {
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
             return false;
         }
-        $query = "DELETE FROM {$this->con->prefTable}PASANTIAS WHERE ID = {$model['id']}";
+        $query = "DELETE FROM {$this->con->prefTable}pasantias WHERE ID = {$model['id']}";
         $result = mysql_query($query);
         if (!$result) {
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -89,7 +89,7 @@ class ModelInternship extends Model {
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,NOMBRE,EMPRESA_ID,FECHA_CREACION FROM {$this->con->prefTable}PASANTIAS WHERE ID=$prkey";
+        $query = "SELECT ID,NOMBRE,EMPRESA_ID,FECHA_CREACION FROM {$this->con->prefTable}pasantias WHERE ID=$prkey";
         $result = mysql_query($query);
         if (!$result) {
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -99,7 +99,7 @@ class ModelInternship extends Model {
         $numRows = mysql_num_rows($result);
         if ($numRows != 0) {
             $pasantias = mysql_fetch_assoc($result);
-            $query = "SELECT CARRERA_ID FROM {$this->con->prefTable}Pasantias_Carreras WHERE PASANTIA_ID = $prkey";
+            $query = "SELECT CARRERA_ID FROM {$this->con->prefTable}pasantias_carreras WHERE PASANTIA_ID = $prkey";
             $result = mysql_query($query);
             if ($result && mysql_num_rows($result) != 0) {
                 while ($row = mysql_fetch_row($result)) {
@@ -118,7 +118,7 @@ class ModelInternship extends Model {
         }
         $where = $where != "" ? "WHERE $where" : "";
 
-        $query = "SELECT P.ID,P.NOMBRE,P.EMPRESA_ID,E.NOMBRE 'EMPRESA',FECHA_CREACION FROM {$this->con->prefTable}PASANTIAS P INNER JOIN {$this->con->prefTable}EMPRESAS E" .
+        $query = "SELECT P.ID,P.NOMBRE,P.EMPRESA_ID,E.NOMBRE 'EMPRESA',FECHA_CREACION FROM {$this->con->prefTable}pasantias P INNER JOIN {$this->con->prefTable}empresas E" .
                 " ON P.EMPRESA_ID = E.ID $where";
         $result = mysql_query($query);
         if (!$result) {
@@ -129,7 +129,7 @@ class ModelInternship extends Model {
         $arrInternships = array();
         if ($numRows != 0) {
             while ($row = mysql_fetch_assoc($result)) {
-                $query2 = "SELECT CP.CARRERA_ID,C.NOMBRE FROM {$this->con->prefTable}Pasantias_Carreras CP INNER JOIN CARRERAS C " .
+                $query2 = "SELECT CP.CARRERA_ID,C.NOMBRE FROM {$this->con->prefTable}pasantias_carreras CP INNER JOIN carreras C " .
                         "ON CP.CARRERA_ID = C.ID WHERE CP.PASANTIA_ID = {$row['ID']}";
                 $result2 = mysql_query($query2);
                 if ($result2 && mysql_num_rows($result2) != 0) {
@@ -153,7 +153,7 @@ class ModelInternship extends Model {
         foreach($model['carreras'] as $k=>$v)
             $model['carreras'][$k] = $v + 0;
         
-        $query = "UPDATE {$this->con->prefTable}PASANTIAS SET NOMBRE='{$model['nombre']}',EMPRESA_ID={$model['empresa_id']}".
+        $query = "UPDATE {$this->con->prefTable}pasantias SET NOMBRE='{$model['nombre']}',EMPRESA_ID={$model['empresa_id']}".
                  " WHERE ID={$model['id']}";
         $result = mysql_query($query, conexion::$link);
         if (!$result) {
@@ -166,7 +166,7 @@ class ModelInternship extends Model {
             $pasantia_id = $model['id'];
             
             //eliminar los registros de carreras pasantias para actualizarlos
-            $query = "DELETE FROM {$this->con->prefTable}Pasantias_Carreras WHERE PASANTIA_ID={$model['id']}";
+            $query = "DELETE FROM {$this->con->prefTable}pasantias_carreras WHERE PASANTIA_ID={$model['id']}";
             $result = mysql_query($query);
             if (!$result)
                 Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -176,7 +176,7 @@ class ModelInternship extends Model {
                 $values .= "($pasantia_id,$carrera_id)";
             }
             //insertar las carreras a la pasantia actualizadas
-            $query = "INSERT INTO {$this->con->prefTable}Pasantias_Carreras(PASANTIA_ID,CARRERA_ID)" .
+            $query = "INSERT INTO {$this->con->prefTable}pasantias_carreras(PASANTIA_ID,CARRERA_ID)" .
                     " VALUES $values";
             $result = mysql_query($query);
             if (!$result)

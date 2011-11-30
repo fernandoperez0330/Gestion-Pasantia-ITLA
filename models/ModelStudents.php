@@ -27,7 +27,7 @@ class ModelStudents extends Model{
         $model[ 'carrera' ] = htmlentities( $model[ 'carrera' ] );
                 
         
-        $query = "INSERT INTO {$this->con->prefTable} ESTUDIANTES (NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID) ".
+        $query = "INSERT INTO {$this->con->prefTable}estudiantes (NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID) ".
                  "VALUES('{$model['nombre']}','{$model['correo']}','{$model['telefono']}','{$model['telefono2']}','{$model['celular']}',{$model['carrera']})";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
@@ -53,7 +53,7 @@ class ModelStudents extends Model{
     public function delete($model) {
         $model['id'] = $model['id'] + 0;        
         
-        $query = "DELETE FROM {$this->con->prefTable}ESTUDIANTES WHERE ID = {$model['id']}"; 
+        $query = "DELETE FROM {$this->con->prefTable}estudiantes WHERE ID = {$model['id']}"; 
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -65,7 +65,7 @@ class ModelStudents extends Model{
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}ESTUDIANTES WHERE ID=$prkey";
+        $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}estudiantes WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
             return false;
@@ -87,7 +87,7 @@ class ModelStudents extends Model{
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}ESTUDIANTES $where";
+        $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}estudiantes $where";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             return false;
@@ -116,7 +116,7 @@ class ModelStudents extends Model{
         $model[ 'celular' ] = htmlentities( $model[ 'celular' ] );
         $model[ 'carrera' ] = htmlentities( $model[ 'carrera' ] );
         
-        $query = "UPDATE {$this->con->prefTable}ESTUDIANTES SET NOMBRE = '{$model['nombre']}',CORREO = '{$model[ 'correo' ]}',TELEFONO='{$model[ 'telefono' ]}',TELEFONO2='{$model[ 'telefono2' ]}',CELULAR='{$model[ 'celular' ]}',CARRERA_ID={$model[ 'carrera' ]} WHERE ID={$model['id']}";
+        $query = "UPDATE {$this->con->prefTable}estudiantes SET NOMBRE = '{$model['nombre']}',CORREO = '{$model[ 'correo' ]}',TELEFONO='{$model[ 'telefono' ]}',TELEFONO2='{$model[ 'telefono2' ]}',CELULAR='{$model[ 'celular' ]}',CARRERA_ID={$model[ 'carrera' ]} WHERE ID={$model['id']}";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
