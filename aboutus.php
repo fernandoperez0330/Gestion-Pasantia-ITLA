@@ -1,5 +1,10 @@
 <?php
-require_once('config/Config.php');
+require("include/main.inc.php");
+require("models/Model.php");
+require("models/ModelInternship.php");
+//modelo de las pasantia
+$modelInternship = new ModelInternship();
+$arrInternships = $modelInternship->findsome(array());
 $title = "Nosotros";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";

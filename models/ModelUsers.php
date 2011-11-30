@@ -65,16 +65,17 @@ class ModelUsers extends Model {
         $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM {$this->con->prefTable}USUARIOS $where";
         $result = mysql_query($query, conexion::$link);
         if (!$result) {
+            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
             return false;
         }
         $numRows = mysql_num_rows($result);
-        $arrCarreras = array();
+        $arrUsers = array();
         if ($numRows != 0) {
             while ($row = mysql_fetch_assoc($result)) {
-                $arrCarreras[] = $row;
+                $arrUsers[] = $row;
             }
         }
-        return $arrCarreras;
+        return $arrUsers;
     }
 
     public function update($model) {

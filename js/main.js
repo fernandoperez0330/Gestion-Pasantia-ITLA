@@ -1,18 +1,23 @@
 
 $(document).ready(function(){  
 
-    /**
-     *
-     **/
+    //area para la listas de las companias
     if ($("#areacompaniesmanager").length){
         $("#areacompaniesmanager").ready(function(){
             loadajaxcontent('views/modules/CompaniesLists.php', 'get','',$('.ajaxloader'),$("#areacompaniesmanager"));
         });
     }
     
-    /**
-     * area para las Carreras
-     **/ 
+    //area para las listas de las pasantias
+    if ($("#areainternshipsmanager").length){
+        $("#areainternshipsmanager").ready(function(){
+            loadajaxcontent('views/modules/InternshipsLists.php', 'get','',$('.ajaxloader'),$("#areainternshipsmanager"));
+        });
+        
+    }
+    
+    
+    //area para las lista de las carreras
     if( $("#areacareersmanager").length)
     {
         $("#areacareersmanager").ready( function()

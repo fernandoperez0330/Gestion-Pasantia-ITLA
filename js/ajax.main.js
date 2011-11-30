@@ -106,7 +106,6 @@ $(document).ready(function(){
     });
     
     /**************Formulario de Carreras*************/
-    
     $("#frmCareerEditor").submit( function( e )
     {
         if($("#nombre").val()=="")
@@ -175,8 +174,91 @@ $(document).ready(function(){
             });                    
         }
         return false;
+    });
+    
+    //formulario de pasantias
+    $("#frmInternshipEditor").submit( function( e )
+    {
+        if($("#nombre").val()=="")
+        {
+            e.preventDefault();
+            $("#nombre").focus();
+            alert( "El nombre es requerido" );
+            return;
+        }
+        if( $("#empresa_id").val()=="0")
+        {
+            $("#empresa_id").focus();
+            alert( "Es requerida la empresa para la pasantia");
+            return; 
+        }
+        if( $("#carreras").val()=="")
+        {
+            $("#carreras").focus();
+            alert( "Es requerida al menos una carrera para la pasantia");
+            return; 
+        }
+        //verificar las carreras para ponerlas separada por coma para que pueda ir a post en php
+        carreras = $("#carreras").serialize();
+        idcarreras = "";
+        arrSplitCarreras = carreras.split('&');
+        for (i=0; i<arrSplitCarreras.length; i++){
+            arrIdCarreras = arrSplitCarreras[i].split('=');
+            if (idcarreras != "") idcarreras += ","; 
+            idcarreras += arrIdCarreras[1];
+        }
+        
+        if( $("#modificar").length )
+        {                    
+            $.ajax( {
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize() + "&carreras=" + idcarreras,
+                dataType : "JSON",    
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                success: function( data )
+                {
+                    $(".ajaxloader").html( "" );                            
+                    if( data.return)
+                    {
+                        alert( "la pasantia ha sido actualizada exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "la pasantia no ha sido actualizada correctamente" );
+                }
+                        
+            });
+        }
+        else
+        {                    
+            $.ajax( {                        
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize() + "&carreras=" + idcarreras,
+                dataType : "JSON",                        
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                error: function(data,type,error){
+                    alert(error); 
+                },
+                success: function( data )
+                {                            
+                    $(".ajaxloader").html( "" );
+                    if( data.return)
+                    {
+                        alert( "La pasantia ha sido agregada exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "La pasantia no ha sido agregada correctamente" );
+                }    
+            });                    
+        }
+        return false;
     })
-    
-    
     
 });

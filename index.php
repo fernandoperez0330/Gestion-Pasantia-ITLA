@@ -1,7 +1,13 @@
 <?php
-require_once('config/Config.php');
-require_once('config/Conexion.php');
+require("include/main.inc.php");
+require("models/Model.php");
+require("models/ModelInternship.php");
+//modelo de las pasantia
+$modelInternship = new ModelInternship();
+$arrInternships = $modelInternship->findsome(array());
 $title = "Pagina Principal";
+
+
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
 $meta['description'] = "";
@@ -38,7 +44,6 @@ $meta['description'] = "";
                 </div>
                 <?php include("views/socialnetworks.html"); ?>
             </div>
-            
             <?php include("views/footer.html"); ?>
         </div>
     </body>

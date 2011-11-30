@@ -32,8 +32,8 @@ class ModelCompanies extends Model {
     }
 
     public function delete($model) {
-        $model['ID'] = $model['ID'] + 0;
-        $query = "DELETE FROM {$this->con->prefTable}EMPRESAS WHERE ID = {$model['ID']}"; 
+        $model['id'] = $model['id'] + 0;
+        $query = "DELETE FROM {$this->con->prefTable}EMPRESAS WHERE ID = {$model['id']}"; 
         $result = mysql_query($query);
         if(!$result){
             return false;

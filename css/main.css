@@ -335,3 +335,21 @@ table tr td
     margin:0px;
     
 }
+
+.selectwithsize{
+    width:200px;
+    
+}
+
+#arealistinternships{
+    
+}
+
+#arealistinternships .internships{
+    width:250px;
+    float:left;
+}
+
+#arealistinternships .internships p{
+    font-weight:bold;
+}

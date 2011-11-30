@@ -1,7 +1,7 @@
 <?php
 require("include/main.inc.php");
 require("models/Model.php");
-require("models/ModelCompanies.php");
+require("models/ModelInternship.php");
 
 //solo para administradores
 $validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']],1);
@@ -11,12 +11,12 @@ if (!$validateUser->validateLevel()){
 $msgnot = "";
 if (isset($_GET['del'])){
     $_GET['del'] = $_GET['del'] + 0;
-    $model = new ModelCompanies();
+    $model = new ModelInternship();
     $modelElim=array();
-    $modelElim[ 'id' ]=$_GET[ 'del' ];    
+    $modelElim[ 'id' ]=$_GET[ 'del' ];        
     $return = $model->delete( $modelElim );
-    if( $return ) $msgnot = "La empresa se elimin&oacute; correctamente";
-    else $msgnot = "La empresa no se pudo eliminar, favor intente de nuevo, si el problema persiste, favor reportar";
+    if( $return ) $msgnot = "La pasantia se elimin&oacute; correctamente";
+    else $msgnot = "La pasantia no se pudo eliminar, favor intente de nuevo, si el problema persiste, favor reportar";
 }
 
 $title = "Administrador de empresas";
@@ -50,7 +50,7 @@ $meta['description'] = "";
             </div>
             <div id="site_content">
                 <?=$msgnot  ? "<div class=\"msg\">$msgnot</div>" : "";?>
-                <div id="areacompaniesmanager"></div>
+                <div id="areainternshipsmanager"></div>
             </div>
             <?php include("views/footer.html"); ?>
         </div>

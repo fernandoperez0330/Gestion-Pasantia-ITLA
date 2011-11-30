@@ -1,5 +1,12 @@
 <?php
 require("include/main.inc.php");
+require("models/Model.php");
+require("models/ModelInternship.php");
+
+$model = new ModelInternship();
+$arrInternships = $model->findsome(array());
+
+
 $title = "Pasantias";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
@@ -30,9 +37,29 @@ $meta['description'] = "";
                 ?>
             </div>
             <div id="site_content">
-                <div id="content">
-                    <!--aqui va el contenido dinamico-->
-                </div>
+                    <h1>Pasantias activas</h1>
+                    <div id="arealistinternships">
+                        <?php
+                        foreach($arrInternships as $internship){
+                            $carreras = "";
+                            foreach($internship['carreras'] as $career){
+                                if ($carreras != "") $carreras .= ", ";
+                                $carreras .= $career['NOMBRE'];
+                            }
+                           ?>
+                        <div class="internships">
+                            <p><?=$internship['NOMBRE']?></p>
+                            <ul>
+                                <li><?=$internship['EMPRESA']?></li>
+                                <li><?=$carreras?></li>
+                                <li><a href="">Solicitar</a></li>
+                            </ul>
+                        </div>   
+                        <?php 
+                            
+                        }
+                        ?>
+                    </div>
             </div>
             <?php include("views/footer.html"); ?>
         </div>

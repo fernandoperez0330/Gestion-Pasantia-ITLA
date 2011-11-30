@@ -1,13 +1,17 @@
 <div class="sidebar">
-    <!-- insert your sidebar items here -->
-    <h3>Latest News</h3>
-    <h4>New Website Launched</h4>
-    <h5>January 1st, 2010</h5>
-    <p>2010 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
-    <p></p>
-    <h4>New Website Launched</h4>
-    <h5>January 1st, 2010</h5>
-    <p>2010 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+    <h3>Ofertas de pasantia</h3>
+    <?php
+    if (isset($arrInternships) && $arrInternships){
+        $count = 0;
+        foreach($arrInternships as $internship){
+        ?>
+        <h4><?=$internship['NOMBRE']?></h4>
+        <h5>January 1st, 2010</h5>
+        <?php
+        if ($count++  == 2) break;
+        }
+    }else echo "No hay ofertas de pasantias";
+    ?>
     <h3>Enlaces</h3>
     <ul>
         <li><a href="http://itla.edu.do">Instituto Tecnologico Las Americas (ITLA)</a></li>

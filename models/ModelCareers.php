@@ -16,7 +16,7 @@ class ModelCareers extends Model{
         $model[ 'nombre' ] = htmlentities($model[ 'nombre' ]);
         $model[ 'descripcion' ] = htmlentities( $model[ 'descripcion' ] );
         
-        $query = "INSERT INTO {$this->con->prefTable} CARRERAS(NOMBRE,DESCRIPCION) ".
+        $query = "INSERT INTO {$this->con->prefTable}CARRERAS(NOMBRE,DESCRIPCION) ".
                  "VALUES('{$model['nombre']}','{$model['descripcion']}')";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
@@ -45,6 +45,7 @@ class ModelCareers extends Model{
         $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}CARRERAS WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
+            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
             return false;
         }
         $carreras = array(); 
@@ -64,6 +65,7 @@ class ModelCareers extends Model{
         $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}CARRERAS $where";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
+            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
             return false;
         }
         $numRows = mysql_num_rows($result);

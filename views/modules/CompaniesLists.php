@@ -35,7 +35,10 @@ include("../jstagsforajax.html");
                     <td><?= $company['CORREO']; ?></td>
                     <td><?= $company['TELEFONO1']; ?></td>
                     <td><?= $company['TELEFONO2']; ?></td>
-                    <td><a href="views/modules/CompaniesEditor.php?id=<?= $company['ID']; ?>" class="ajaxredirect">Actualizar</a></td>
+                    <td>
+                        <a href="companiesManager.php?del=<?= $company['ID']; ?>" class="eliminar">Eliminar</a>
+                        <a href="views/modules/CompaniesEditor.php?id=<?= $company['ID']; ?>" class="ajaxredirect">Actualizar</a>
+                    </td>
                 </tr>    
                 <?php
             }
