@@ -4,6 +4,9 @@
  * @version 1.0
  * @author Fernando Perez
  */
+require_once( 'ModelUsers.php' );
+require_once( 'ModelCareers.php' );
+
 class ModelStudents extends Model{
     
     public function __construct() {
@@ -11,6 +14,9 @@ class ModelStudents extends Model{
     }
 
     public function add($model) {
+        
+        $modelUser = new ModelUsers();
+        
                 //depurar los datos antes de ponerlo en la consulta
         $model[ 'nombre' ] = htmlentities($model[ 'nombre' ]);
         $model[ 'correo' ] = htmlentities( $model[ 'correo' ] );
@@ -19,7 +25,7 @@ class ModelStudents extends Model{
         $model[ 'telefono2' ] = htmlentities( $model[ 'telefono2' ] );
         $model[ 'celular' ] = htmlentities( $model[ 'celular' ] );
         $model[ 'carrera' ] = htmlentities( $model[ 'carrera' ] );
-        
+                
         
         $query = "INSERT INTO {$this->con->prefTable} ESTUDIANTES (NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID) ".
                  "VALUES('{$model['nombre']}','{$model['correo']}','{$model['telefono']}','{$model['telefono2']}','{$model['celular']}',{$model['carrera']})";
@@ -29,12 +35,24 @@ class ModelStudents extends Model{
             return false;
         }
         if (mysql_affected_rows(conexion::$link))
-        return true;
+        {
+            $modelUserData = array();
+            $modelUserData[ 'usuario' ] = $model[ 'correo' ];
+            $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'password' ] );
+            $modelUserData[ 'tipo' ] = 2;
+            
+            if( $modelUser->add( $modelUserData ) )
+              return true;
+            else
+              return false;
+    
+        }else
         return  false;        
     }
 
     public function delete($model) {
-        $model['id'] = $model['id'] + 0;
+        $model['id'] = $model['id'] + 0;        
+        
         $query = "DELETE FROM {$this->con->prefTable}ESTUDIANTES WHERE ID = {$model['id']}"; 
         $result = mysql_query($query);
         if(!$result){
@@ -52,13 +70,17 @@ class ModelStudents extends Model{
         if(!$result){
             return false;
         }
-        $carreras = array(); 
+        $students = array(); 
         $numRows = mysql_num_rows($result);
-        if ($numRows != 0) $carreras = mysql_fetch_assoc ($result);
-        return $carreras;        
+        if ($numRows != 0) $students = mysql_fetch_assoc ($result);
+        return $students;        
     }
 
     public function findsome($arrBy) {
+        
+        $modelCareers = new ModelCareers();
+        $i=0;
+        
         $where = "";
         foreach($arrBy as $field=>$value){
             $value = htmlentities($value);
@@ -71,13 +93,17 @@ class ModelStudents extends Model{
             return false;
         }
         $numRows = mysql_num_rows($result);
-        $arrCarreras = array();
+        $arrStudents = array();
         if ($numRows != 0){
             while ($row = mysql_fetch_assoc($result)){
-                $arrCarreras[] = $row;
+                $arrStudents[] = $row;
+                
+                $careers = $modelCareers->find( $arrStudents[ $i ][ 'CARRERA_ID' ] );
+                $arrStudents[ $i ][ 'CARRERA_ID' ] = $careers[ 'NOMBRE' ];
+                ++$i;
             }
         }
-        return $arrCarreras;        
+        return $arrStudents;        
     }
 
     public function update($model) {
@@ -90,7 +116,7 @@ class ModelStudents extends Model{
         $model[ 'celular' ] = htmlentities( $model[ 'celular' ] );
         $model[ 'carrera' ] = htmlentities( $model[ 'carrera' ] );
         
-        $query = "UPDATE {$this->con->prefTable}CARRERAS SET NOMBRE = '{$model['nombre']}',CORREO = '{$model[ 'correo' ]}',TELEFONO='{$model[ 'telefono' ]}',TELEFONO2='{$model[ 'telefono2' ]}',CELULAR='{$model[ 'celular' ]}',CARRERA_ID={$model[ 'carrera' ]}, WHERE ID={$model['id']}";
+        $query = "UPDATE {$this->con->prefTable}ESTUDIANTES SET NOMBRE = '{$model['nombre']}',CORREO = '{$model[ 'correo' ]}',TELEFONO='{$model[ 'telefono' ]}',TELEFONO2='{$model[ 'telefono2' ]}',CELULAR='{$model[ 'celular' ]}',CARRERA_ID={$model[ 'carrera' ]} WHERE ID={$model['id']}";
         $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);

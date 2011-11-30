@@ -8,6 +8,7 @@ $arrCarrers = $model->findsome(array());
 
 include("../jstagsforajax.html"); 
 ?>
+
 <p class="breadscrumbs"><a href="controlPanel.php">Panel de control</a> - <strong>Gestion de carreras</strong></p>
 <h3>Lista de Carreras</h3>
 <div>
