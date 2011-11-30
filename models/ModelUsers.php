@@ -129,6 +129,15 @@ class ModelUsers extends Model {
                 $k = strtolower($k);
                 $arrReturn[$k] = $v;
             }
+            $query = "SELECT TIPO,TIPO_ID FROM {$this->con->prefTable}usuarios_tipos WHERE USUARIO_ID ={$arrReturn['id']}";
+            $result = mysql_query($query,conexion::$link);
+            if ($result && mysql_num_rows($result) != 0) {
+                $row = mysql_fetch_assoc ($result);
+                foreach($row as $k=>$v){
+                    $arrRow[strtolower($k)] = $v;
+                }
+                $arrReturn = array_merge($arrReturn,$arrRow);
+            }   
             $_SESSION[Config::$arrKeySession['user']] = $arrReturn;
         }
         return $arrReturn;
