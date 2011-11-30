@@ -1,8 +1,8 @@
 <?php
 define("URLROOT","../../");
 require(URLROOT . "include/main.inc.php");
-require(URLROOT . "Models/Model.php");
-require(URLROOT . "Models/ModelCompanies.php");
+require(URLROOT . "models/Model.php");
+require(URLROOT . "models/ModelCompanies.php");
 $model = new ModelCompanies();
 $arrCompanies = $model->findsome(array());
 
