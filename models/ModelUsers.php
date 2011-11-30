@@ -17,8 +17,8 @@ class ModelUsers extends Model {
         $model['clave'] = htmlentities($model['clave']);
         $model['tipo'] = htmlentities($model['tipo']);
 
-        $query = "INSERT INTO {$this->con->prefTable} USUARIOS(USUARIO,CLAVE,TIPO) " .
-                "VALUES('{$model['usuario']}','{$model['clave']}','{$model[ 'tipo']}')";
+        $query = "INSERT INTO {$this->con->prefTable} USUARIOS(USUARIO,CLAVE) " .
+                "VALUES('{$model['usuario']}','{$model['clave']}')";
         $result = mysql_query($query, conexion::$link);
         if (!$result) {
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -43,7 +43,7 @@ class ModelUsers extends Model {
 
     public function find($prkey) {
         $prkey = $prkey + 0;
-        $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM {$this->con->prefTable}USUARIOS WHERE ID=$prkey";
+        $query = "SELECT ID,USUARIO,CLAVE FROM {$this->con->prefTable}USUARIOS WHERE ID=$prkey";
         $result = mysql_query($query);
         if (!$result) {
             return false;
@@ -62,7 +62,7 @@ class ModelUsers extends Model {
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM {$this->con->prefTable}USUARIOS $where";
+        $query = "SELECT ID,USUARIO,CLAVE FROM {$this->con->prefTable}USUARIOS $where";
         $result = mysql_query($query, conexion::$link);
         if (!$result) {
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -83,7 +83,7 @@ class ModelUsers extends Model {
         $model['clave'] = htmlentities($model['clave']);
         $model['tipo'] = htmlentities($model['tipo']);
 
-        $query = "UPDATE {$this->con->prefTable}USUARIOS SET USUARIO = '{$model['usuario']}',CLAVE = '{$model['clave']}',TIPO={$model[ 'tipo' ]} WHERE ID={$model['id']}";
+        $query = "UPDATE {$this->con->prefTable}USUARIOS SET USUARIO = '{$model['usuario']}',CLAVE = '{$model['clave']}' WHERE ID={$model['id']}";
         $result = mysql_query($query, conexion::$link);
         if (!$result) {
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
@@ -102,7 +102,7 @@ class ModelUsers extends Model {
      */
     public function login($username, $password) {
         $username = mysql_real_escape_string($username);
-        $query = "SELECT ID,USUARIO,CLAVE,TIPO FROM " . $this->con->prefTable . "Usuarios WHERE USUARIO='$username'";
+        $query = "SELECT ID,USUARIO,CLAVE FROM " . $this->con->prefTable . "Usuarios WHERE USUARIO='$username'";
         $result = mysql_query($query, Conexion::$link);
         if (!$result)
             return false;
