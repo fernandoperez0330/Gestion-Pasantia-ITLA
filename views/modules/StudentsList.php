@@ -19,7 +19,7 @@ include("../jstagsforajax.html");
         <tr>
             <th>Nombre</th>
             <th>Email</th>
-            <th>Telefono</th>
+            <th>Telefono</th>        
             <th>Celurar</th>
             <th>Carrera</th>
             <th>&nbsp;</th>
@@ -33,7 +33,7 @@ include("../jstagsforajax.html");
                 <tr>
                     <td><?= $students['NOMBRE']; ?></td>
                     <td><?= $students['CORREO']; ?></td>
-                    <td><?= $students['TELEFONO']; ?></td>
+                    <td><?= $students['TELEFONO']; ?></td>                    
                     <td><?= $students['CELULAR']; ?></td>
                     <td><?= $students['CARRERA_ID']; ?></td>
                     <td><a href="studentsManager.php?del=<?=$students['ID']?>" class="eliminar">Eliminar</a>&nbsp &nbsp<a href="views/modules/registerStudents.php?id=<?= $students['ID']; ?>" class="ajaxredirect">Actualizar</a></td>

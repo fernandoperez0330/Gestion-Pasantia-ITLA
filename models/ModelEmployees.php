@@ -17,8 +17,8 @@ class ModelEmployees extends Model{
         $model['telefono']= htmlentities($model['telefono']);
         
         $query = "INSERT INTO {$this->con->prefTable}empleados(NOMBRE,APELLIDO,CORREO,TELEFONO) ".
-                 "VALUES('{$model['nombre']}','{$model['apellido']}','{$model['correo']}','{$model['telefono1']}')";
-        $result = mysql_query($query,$this->con->link);
+                 "VALUES('{$model['nombre']}','{$model['apellido']}','{$model['correo']}','{$model['telefono']}')";
+        $result = mysql_query($query,conexion::$link);
         if(!$result){
             Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;

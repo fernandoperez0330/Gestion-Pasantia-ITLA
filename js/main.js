@@ -16,6 +16,7 @@ $(document).ready(function(){
         
     }
     
+    
     //area para las listas de las solicitudes de pasantias
     if ($("#arearequestmanager").length){
         $("#arearequestmanager").ready(function(){
@@ -23,15 +24,26 @@ $(document).ready(function(){
         });
         
     }
+    /* area de para la lista de empleados**/
+    
+    if( $("#areaemployeesmanager").length)
+    {
+        $("#areaemployeesmanager").ready( function()
+        {            
+            loadajaxcontent('views/modules/EmployeesList.php','get','',$('.ajaxloader'),$("#areaemployeesmanager") );                                      
+        });
+    }
+       
     
     //area para las lista de las carreras
     if( $("#areacareersmanager").length)
     {
         $("#areacareersmanager").ready( function()
-        {
+        {            
             loadajaxcontent('views/modules/CareersList.php','get','',$('.ajaxloader'),$("#areacareersmanager") );                                      
         });
     }
+
     
     /**
      * area para los estudiantes
