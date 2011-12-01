@@ -5,7 +5,7 @@ require("models/ModelInternship.php");
 //modelo de las pasantia
 $modelInternship = new ModelInternship();
 $arrInternships = $modelInternship->findsome(array());
-$title = "Pagina Principal";
+$title = "Bienvenid@s";
 
 
 //TODO: terminar de llenar los metatags
