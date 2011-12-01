@@ -8,6 +8,29 @@ $(document).ready(function(){
             return false;  
         });
     }
+    
+    /*enlace para eliminar de carreras*/
+    if( $(".eliminar").length )
+    {
+        $(".eliminar").click( function( e )
+                             {
+                                e.preventDefault();
+                                $.ajax({
+                                    url:$(this).attr('id'),
+                                    type:'post',
+                                    dataType:'JSON',
+                                    beforeSend:function()
+                                    {
+                                        $(".ajaxloader").html( "Cargando..." );
+                                    },
+                                    success:function( data )
+                                    {
+                                        $(".ajaxloader").html( "" );
+                                        
+                                    }
+                                       })
+                             })
+    }
 
 
     /********************formularios********************/
@@ -105,7 +128,7 @@ $(document).ready(function(){
                     e.preventDefault();
                     $("#descripcion").focus();
                     alert( "Es requerida una descripcion para la carrera" );
-                    return;
+                    return; 
                 }
                 if( $("#modificar").length )
                 {                    

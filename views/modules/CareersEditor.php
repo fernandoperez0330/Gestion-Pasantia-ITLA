@@ -15,7 +15,7 @@ if( isset( $_GET[ 'id' ] ) )
     if( $arrCarrers )
     {
         foreach( $arrCarrers as  $key => $value )
-            $arrData[ strtolower( $key) ] = $value;
+            $arrData[ strtolower( $key) ] = $value; 
     }else
         die( "No se pudo encontrar la carrera" );
         

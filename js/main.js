@@ -12,7 +12,7 @@ $(document).ready(function(){
     
     /**
      * area para las Carreras
-     **/
+     **/ 
     if( $("#areacareersmanager").length)
     {
         $("#areacareersmanager").ready( function()

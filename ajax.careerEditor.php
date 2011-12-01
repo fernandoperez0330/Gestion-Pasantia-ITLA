@@ -9,7 +9,7 @@ require("utils/Utils.php");
 require("utils/AjaxHandler.php");
 
 $handler = new AjaxHandler();
-$model = new ModelCareers();
+$model = new ModelCareers(); 
 //para actualizar una empresa existente
 if (isset($_POST['id'])) {
     if ($model->update($_POST)){

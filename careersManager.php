@@ -13,7 +13,7 @@ $meta['description'] = "";
         include("views/titletag.html");
         //archivo de los metatags
         include("views/metatags.html");
-        //archivo de los tags javascript
+        //archivo de los tags javascript 
         include("views/jstags.html");
         //archivo de los tags css
         include("views/csstags.html");

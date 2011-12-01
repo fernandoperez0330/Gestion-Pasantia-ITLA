@@ -47,7 +47,7 @@ class ModelCareers extends Model{
         if(!$result){
             return false;
         }
-        $carreras = array();
+        $carreras = array(); 
         $numRows = mysql_num_rows($result);
         if ($numRows != 0) $carreras = mysql_fetch_assoc ($result);
         return $carreras;        
