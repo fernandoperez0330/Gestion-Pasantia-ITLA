@@ -22,15 +22,15 @@ class ModelInternship extends Model {
 
         $query = "INSERT INTO {$this->con->prefTable}pasantias(NOMBRE,EMPRESA_ID,FECHA_CREACION) " .
                 "VALUES('{$model['nombre']}','{$model['empresa_id']}',{$model['fecha_creacion']})";
-        $result = mysql_query($query, conexion::$link);
+        $result = mysql_query($query, $this->con->link);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link)) {
+        if (mysql_affected_rows($this->con->link)) {
             //verificar la cantidad de carreras que aplica esta pasantia
             $values = "";
-            $pasantia_id = mysql_insert_id(conexion::$link);
+            $pasantia_id = mysql_insert_id($this->con->link);
             foreach ($model['carreras'] as $carrera_id) {
                 if ($values != "")
                     $values .= ",";
@@ -40,7 +40,7 @@ class ModelInternship extends Model {
                     " VALUES $values";
             $result = mysql_query($query);
             if (!$result)
-                Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+                Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return true;
         }
         return false;
@@ -55,7 +55,7 @@ class ModelInternship extends Model {
         $query = "SELECT CARRERA_ID FROM {$this->con->prefTable}pasantias_carreras where PASANTIA_ID={$prkey}";
         $result = mysql_query($query);
         if (!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
         $arrCareers = array();
@@ -73,16 +73,16 @@ class ModelInternship extends Model {
         $query = "DELETE FROM {$this->con->prefTable}pasantias_carreras WHERE PASANTIA_ID = {$model['id']}";
         $result = mysql_query($query);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
         $query = "DELETE FROM {$this->con->prefTable}pasantias WHERE ID = {$model['id']}";
         $result = mysql_query($query);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
             return true;
         return false;
     }
@@ -92,7 +92,7 @@ class ModelInternship extends Model {
         $query = "SELECT ID,NOMBRE,EMPRESA_ID,FECHA_CREACION FROM {$this->con->prefTable}pasantias WHERE ID=$prkey";
         $result = mysql_query($query);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
         $pasantias = array();
@@ -122,7 +122,7 @@ class ModelInternship extends Model {
                 " ON P.EMPRESA_ID = E.ID $where";
         $result = mysql_query($query);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
         $numRows = mysql_num_rows($result);
@@ -155,12 +155,12 @@ class ModelInternship extends Model {
         
         $query = "UPDATE {$this->con->prefTable}pasantias SET NOMBRE='{$model['nombre']}',EMPRESA_ID={$model['empresa_id']}".
                  " WHERE ID={$model['id']}";
-        $result = mysql_query($query, conexion::$link);
+        $result = mysql_query($query, $this->con->link);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link)) {
+        if (mysql_affected_rows($this->con->link)) {
             //verificar la cantidad de carreras que aplica esta pasantia
             $values = "";
             $pasantia_id = $model['id'];
@@ -169,7 +169,7 @@ class ModelInternship extends Model {
             $query = "DELETE FROM {$this->con->prefTable}pasantias_carreras WHERE PASANTIA_ID={$model['id']}";
             $result = mysql_query($query);
             if (!$result)
-                Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+                Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             foreach ($model['carreras'] as $carrera_id) {
                 if ($values != "")
                     $values .= ",";
@@ -180,7 +180,7 @@ class ModelInternship extends Model {
                     " VALUES $values";
             $result = mysql_query($query);
             if (!$result)
-                Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+                Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return true;
         }
         return false;

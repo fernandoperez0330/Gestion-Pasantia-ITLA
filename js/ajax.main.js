@@ -1,7 +1,7 @@
 $(document).ready(function(){
     /**
-    * enlace para abrir formulario para agregar
-    **/
+     * enlace para abrir formulario para agregar
+     **/
     if ($(".ajaxredirect").length){
         $(".ajaxredirect").click(function(){            
             loadajaxcontent($(this).attr('href'), 'get','',$(".lnkajaxloader"),$("#site_content"));            
@@ -13,13 +13,13 @@ $(document).ready(function(){
     if( $(".eliminar").length )
     {
         $(".eliminar").click( function( e )
-                             {
-                                if( confirm( "Desea realmnte eliminar es ta carrera ?" ) )
-                                {   
-                                return true; 
-                                }
-                                return false;
-                             });
+        {
+            if( confirm( "Desea realmente eliminar es ta carrera ?" ) )
+            {   
+                return true; 
+            }
+            return false;
+        });
     }
 
 
@@ -51,61 +51,59 @@ $(document).ready(function(){
         }
         
         if( $("#telefono2").val() !="" ){
-        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($("#telefono2").val()))){
-            $("#telefono2").focus();
-            alert('El telefono 2 es  incorrecto');
-            return false;
-        }}
+            if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($("#telefono2").val()))){
+                $("#telefono2").focus();
+                alert('El telefono 2 es  incorrecto');
+                return false;
+            }
+        }
         
         if (!(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($("#correo").val())))){
             $("#correo").focus();
             alert('El correo es requerido o incorrecto');
             return false;
         }
-        
         if ($("#modificar").length){
             //cuando sea para modificar       
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: $(this).serialize(),
-                dataType: 'JSON',
-                beforeSend:function(){
-                    $('.ajaxloader').html("Cargando...");
-                },
-                success: function(data){
-                    $('.ajaxloader').html("");
-                    if (data['return']) {
-                        alert('La empresa ha sido actualizada correctamente');
-                        $(".ajaxredirect").click();
-                    }else alert('La empresa no ha podido ser actualizada  correctamente');
-                }
-            }); 
+            if (confirm("Esta todo correcto para actualizar esta compania?")){
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    dataType: 'JSON',
+                    beforeSend:function(){
+                        $('.ajaxloader').html("Cargando...");
+                    },
+                    success: function(data){
+                        $('.ajaxloader').html("");
+                        if (data['return']) {
+                            alert('La empresa ha sido actualizada correctamente');
+                            $(".ajaxredirect").click();
+                        }else alert('La empresa no ha podido ser actualizada  correctamente');
+                    }
+                }); 
+            }
         } else{
             //cuando sea agregar        
-            $.ajax({
-                url:  $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: $(this).serialize(),
-                cache: false,
-                dataType: 'JSON',
-                beforeSend:function(){
-                    $('.ajaxloader').html("Cargando...");
-                },
-                error: function(data,type,error){
-                    alert(data);
-                    alert(type);
-                    alert(error);
-                },
-                success: function(data){
-                    $('.ajaxloader').html("");
-                    alert(data);
-                /*if (data['return']) {
-                        alert('La empresa ha sido agregada correctamente');
-                        $(".ajaxredirect").click();
-                    }else alert('La empresa no ha podido ser agregada correctamente');*/
-                }
-            }); 
+            if (confirm("Esta todo correcto para agregar esta compania?")){
+                $.ajax({
+                    url:  $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    cache: false,
+                    dataType: 'JSON',
+                    beforeSend:function(){
+                        $('.ajaxloader').html("Cargando...");
+                    },
+                    success: function(data){
+                        $('.ajaxloader').html("");
+                        if (data['return']) {
+                            alert('La empresa ha sido agregada correctamente');
+                            $(".ajaxredirect").click();
+                        }else alert('La empresa no ha podido ser agregada correctamente');
+                    }
+                });
+            } 
         } 
         return false;
     });
@@ -163,7 +161,7 @@ $(document).ready(function(){
                     $(".ajaxloader").html( "Cargando..." )
                 },
                 error: function(data,type,error){
-                   alert(error); 
+                    alert(error); 
                 },
                 success: function( data )
                 {                            
@@ -176,6 +174,87 @@ $(document).ready(function(){
                         alert( "la carrera no ha sido agregada correctamente" );
                 }
                         
+            });                    
+        }
+        return false;
+    });
+    
+    
+    //formulario de solicitudes de pasantias
+    $("#frmRequestEditor").submit( function( e )
+    {   
+        if($("#pasantia_id").val()=="0")
+        {
+            e.preventDefault();
+            $("#pasantia_id").focus();
+            alert( "La pasantia es requerida" );
+            return;
+        }
+        
+        if($("#estudiante_id").val()=="0")
+        {
+            e.preventDefault();
+            $("#estudiante_id").focus();
+            alert( "El estudiante es requerido" );
+            return;
+        }
+        
+        if($("#estatus").val()=="0")
+        {
+            e.preventDefault();
+            $("#estatus").focus();
+            alert( "El estatus es requerido" );
+            return;
+        }
+        
+        
+        if( $("#modificar").length )
+        {                    
+            $.ajax( {
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize(),
+                dataType : "JSON",    
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                success: function( data )
+                {
+                    $(".ajaxloader").html( "" );                            
+                    if( data.return)
+                    {
+                        alert( "La solicitud ha sido efectuada exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "La solicitud no ha sido efectuada, favor intente nuevamente, si el problema persiste favor reportar" );
+                }         
+            });
+        }
+        else
+        {                    
+            $.ajax( {
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize(),
+                dataType : "JSON",    
+                error:function(data,type,error){
+                    alert(error);  
+                },
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                success: function( data )
+                {
+                    $(".ajaxloader").html( "" );                            
+                    if( data.return)
+                    {
+                        alert( "La solicitud ha sido efectuada exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "La solicitud no ha sido efectuada, favor intente nuevamente, si el problema persiste favor reportar" );
+                }         
             });                    
         }
         return false;

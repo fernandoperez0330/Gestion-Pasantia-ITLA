@@ -1,8 +1,10 @@
 <?php
 require("include/main.inc.php");
-
 require("models/Model.php");
 require("models/ModelUsers.php");
+require("models/ModelEmployees.php");
+require("models/ModelRequests.php");
+require("models/ModelStudents.php");
 
 //solo usurios logueados
 $validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']]);
@@ -43,9 +45,15 @@ $meta['description'] = "";
                     $nivel = COnfig::$arrUserLevels[$keynivel];
                     switch($keynivel){
                         case 1: //administrador
+                            $model = new ModelEmployees();
+                            $arrEmployee = $model->find($_SESSION[Config::$arrKeySession['user']]['tipo_id']);
                             include("views/modules/controlPanelAdmin.php");
                             break;
                         case 2: //estudiante
+                            $model = new ModelStudents();
+                            $modelRequest = new ModelRequests();
+                            $arrRequests = $modelRequest->findsome(array('USUARIO_ID'=>$_SESSION[Config::$arrKeySession['user']]['id']));
+                            $arrStudent = $model->find($_SESSION[Config::$arrKeySession['user']]['tipo_id']);
                             include("views/modules/controlPanelStudents.php");
                             break;
                     }

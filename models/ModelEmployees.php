@@ -18,12 +18,12 @@ class ModelEmployees extends Model{
         
         $query = "INSERT INTO {$this->con->prefTable}empleados(NOMBRE,APELLIDO,CORREO,TELEFONO) ".
                  "VALUES('{$model['nombre']}','{$model['apellido']}','{$model['correo']}','{$model['telefono1']}')";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link) == 0) return false;
+        if (mysql_affected_rows($this->con->link) == 0) return false;
         else return true;
     }
 
@@ -34,7 +34,7 @@ class ModelEmployees extends Model{
         if(!$result){
             return false;
         }
-        if (mysql_affected_rows(conexion::$link) == 0) return false;
+        if (mysql_affected_rows($this->con->link) == 0) return false;
         else return true;
     }
 
@@ -59,7 +59,7 @@ class ModelEmployees extends Model{
         }
         $where = $where != "" ? "WHERE $where" : "";
         $query = "SELECT ID,NOMBRE,APELLIDO,CORREO,TELEFONO FROM {$this->con->prefTable}empleados $where";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
             return false;
         }
@@ -80,12 +80,12 @@ class ModelEmployees extends Model{
         $model['telefono']= htmlentities($model['telefono']);
         
         $query = "UPDATE {$this->con->prefTable}empleados SET NOMBRE = '{$model['nombre']}',APELLIDO = '{$model['apellido']}',CORREO='{$model['correo']}',TELEFONO='{$model['telefono']}' WHERE ID={$model['id']}";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link) == 0) return false;
+        if (mysql_affected_rows($this->con->link) == 0) return false;
         else return true;
     }
 

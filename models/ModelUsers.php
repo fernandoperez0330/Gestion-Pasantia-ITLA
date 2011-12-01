@@ -13,18 +13,18 @@ class ModelUsers extends Model {
 
     public function add($model) {
         //depurar los datos antes de ponerlo en la consulta
-        $model['usuario'] = htmlentities($model['usuario']);
-        $model['clave'] = htmlentities($model['clave']);
-        $model['tipo'] = htmlentities($model['tipo']);
+        $model['usuario'] = htmlentities(strip_tags($model['usuario']));
+        $model['clave'] = htmlentities(strip_tags($model['clave']));
+        $model['tipo'] = htmlentities(strip_tags($model['tipo']));
 
         $query = "INSERT INTO {$this->con->prefTable}usuarios(USUARIO,CLAVE) " .
                 "VALUES('{$model['usuario']}','{$model['clave']}')";
-        $result = mysql_query($query, conexion::$link);
+        $result = mysql_query($query, $this->con->link);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
             return true;
         return false;
     }
@@ -36,7 +36,7 @@ class ModelUsers extends Model {
         if (!$result) {
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
             return true;
         return false;
     }
@@ -63,9 +63,9 @@ class ModelUsers extends Model {
         }
         $where = $where != "" ? "WHERE $where" : "";
         $query = "SELECT ID,USUARIO,CLAVE FROM {$this->con->prefTable}usuarios $where";
-        $result = mysql_query($query, conexion::$link);
+        $result = mysql_query($query, $this->con->link);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
         $numRows = mysql_num_rows($result);
@@ -84,12 +84,12 @@ class ModelUsers extends Model {
         $model['tipo'] = htmlentities($model['tipo']);
 
         $query = "UPDATE {$this->con->prefTable}usuarios SET USUARIO = '{$model['usuario']}',CLAVE = '{$model['clave']}' WHERE ID={$model['id']}";
-        $result = mysql_query($query, conexion::$link);
+        $result = mysql_query($query, $this->con->link);
         if (!$result) {
-            Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
             return true;
         return false;
     }
@@ -103,7 +103,7 @@ class ModelUsers extends Model {
     public function login($username, $password) {
         $username = mysql_real_escape_string($username);
         $query = "SELECT ID,USUARIO,CLAVE FROM " . $this->con->prefTable . "usuarios WHERE USUARIO='$username'";
-        $result = mysql_query($query, Conexion::$link);
+        $result = mysql_query($query, $this->con->link);
         if (!$result)
             return false;
         if (mysql_num_rows($result) != 0) {
@@ -130,7 +130,7 @@ class ModelUsers extends Model {
                 $arrReturn[$k] = $v;
             }
             $query = "SELECT TIPO,TIPO_ID FROM {$this->con->prefTable}usuarios_tipos WHERE USUARIO_ID ={$arrReturn['id']}";
-            $result = mysql_query($query,conexion::$link);
+            $result = mysql_query($query,$this->con->link);
             if ($result && mysql_num_rows($result) != 0) {
                 $row = mysql_fetch_assoc ($result);
                 foreach($row as $k=>$v){
