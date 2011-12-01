@@ -13,12 +13,12 @@ class ModelCompanies extends Model {
     public function add($model) {
         
         //depurar los datos antes de ponerlo en la consulta
-        $model['nombre'] = htmlentities($model['nombre']);
-        $model['descripcion'] = htmlentities($model['descripcion']);
-        $model['direccion']= htmlentities($model['direccion']);
-        $model['telefono1']= htmlentities($model['telefono1']);
-        $model['telefono2']= htmlentities($model['telefono2']);
-        $model['correo']= htmlentities($model['correo']);
+        $model['nombre'] = mysql_escape_string(htmlentities(strip_tags($model['nombre'])));
+        $model['descripcion'] = mysql_escape_string(htmlentities(strip_tags($model['descripcion'])));
+        $model['direccion']= mysql_escape_string(htmlentities(strip_tags($model['direccion'])));
+        $model['telefono1']= mysql_escape_string(htmlentities(strip_tags($model['telefono1'])));
+        $model['telefono2']= mysql_escape_string(htmlentities(strip_tags($model['telefono2'])));
+        $model['correo']= mysql_escape_string(htmlentities(strip_tags($model['correo'])));
         
         $query = "INSERT INTO {$this->con->prefTable}empresas(NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO) ".
                  "VALUES('{$model['nombre']}','{$model['descripcion']}','{$model['direccion']}','{$model['telefono1']}','{$model['telefono2']}','{$model['correo']}')";
@@ -78,12 +78,13 @@ class ModelCompanies extends Model {
     }
 
     public function update($model) {
-        $model['nombre'] = htmlentities($model['nombre']);
-        $model['descripcion'] = htmlentities($model['descripcion']);
-        $model['direccion']= htmlentities($model['direccion']);
-        $model['telefono1']= htmlentities($model['telefono1']);
-        $model['telefono2']= htmlentities($model['telefono2']);
-        $model['correo']= htmlentities($model['correo']);
+        $model['id'] = $model['id'] +0;
+        $model['nombre'] = mysql_escape_string(htmlentities(strip_tags($model['nombre'])));
+        $model['descripcion'] = mysql_escape_string(htmlentities(strip_tags($model['descripcion'])));
+        $model['direccion']= mysql_escape_string(htmlentities(strip_tags($model['direccion'])));
+        $model['telefono1']= mysql_escape_string(htmlentities(strip_tags($model['telefono1'])));
+        $model['telefono2']= mysql_escape_string(htmlentities(strip_tags($model['telefono2'])));
+        $model['correo']= mysql_escape_string(htmlentities(strip_tags($model['correo'])));
         
         $query = "UPDATE {$this->con->prefTable}EMPRESAS SET NOMBRE = '{$model['nombre']}',DESCRIPCION = '{$model['descripcion']}',DIRECCION='{$model['direccion']}',TELEFONO1='{$model['telefono1']}',TELEFONO2='{$model['telefono2']}',CORREO='{$model['correo']}' WHERE ID={$model['id']}";
         $result = mysql_query($query,$this->con->link);

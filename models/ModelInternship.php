@@ -13,7 +13,7 @@ class ModelInternship extends Model {
 
     public function add($model) {
         //depurar los datos antes de ponerlo en la consulta
-        $model['nombre'] = htmlentities($model['nombre']);
+        $model['nombre'] = mysql_escape_string(htmlentities(strip_tags($model['nombre'])));
         $model['empresa_id'] = $model['empresa_id'] + 0;
         $model['fecha_creacion'] = "NOW()";
         
@@ -52,6 +52,7 @@ class ModelInternship extends Model {
      * @return  array   
      */
     public function getCareers($prkey){
+        $prkey = $prkey + 0;
         $query = "SELECT CARRERA_ID FROM {$this->con->prefTable}pasantias_carreras where PASANTIA_ID={$prkey}";
         $result = mysql_query($query);
         if (!$result){
@@ -146,7 +147,7 @@ class ModelInternship extends Model {
 
     public function update($model) {
         //depurar los datos antes de ponerlo en la consulta
-        $model['nombre'] = htmlentities($model['nombre']);
+        $model['nombre'] = mysql_escape_string(htmlentities(strip_tags($model['nombre'])));
         $model['empresa_id'] = $model['empresa_id'] + 0;
         $model['fecha_creacion'] = "NOW()";
         

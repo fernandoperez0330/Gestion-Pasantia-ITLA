@@ -418,3 +418,9 @@ z-index:2;
 -moz-border-radius-bottomright:10px;
 }
 
+.msg{
+    padding:5px;
+    background:#fbf69c;
+    border:1px solid #f69679;
+    font-weight:bold;
+}

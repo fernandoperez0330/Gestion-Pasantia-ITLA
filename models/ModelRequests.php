@@ -13,7 +13,8 @@ class ModelRequests extends Model{
     public function add($model) {
         $model['estudiante_id'] = $model['estudiante_id'] + 0;
         $model['pasantia_id'] = $model['pasantia_id'] + 0;
-        $model['estatus'] = htmlentities(strip_tags($model['estatus']));
+        $model['estatus'] = mysql_escape_string(htmlentities(strip_tags($model['estatus'])));
+        
         $query = "INSERT INTO {$this->con->prefTable}solicitudes(ESTUDIANTE_ID,PASANTIA_ID,ESTATUS)".
                      "VALUES({$model['estudiante_id']},{$model['pasantia_id']},'{$model['estatus']}')";
                      $result = mysql_query($query, $this->con->link);
@@ -83,7 +84,7 @@ class ModelRequests extends Model{
     public function update($model) {
         $model['id'] = $model['id'] + 0;
         $model['pasantia_id'] = $model['pasantia_id'] + 0;
-        $model['estatus'] = htmlentities(strip_tags($model['estatus']));
+        $model['estatus'] = mysql_escape_string(htmlentities(strip_tags($model['estatus'])));
         echo $query = "UPDATE {$this->con->prefTable}solicitudes SET PASANTIA_ID ={$model['pasantia_id']},ESTATUS='{$model['estatus']}' WHERE ID={$model['id']}";
         $result = mysql_query($query, $this->con->link);
         if (!$result) {
