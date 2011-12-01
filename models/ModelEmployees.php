@@ -4,6 +4,8 @@
  * @author Fernando Perez
  * @version 1.0
  */
+require_once( 'ModelUsers.php' );
+
 class ModelEmployees extends Model{
     
     public function __construct() {
@@ -11,6 +13,9 @@ class ModelEmployees extends Model{
     }
 
     public function add($model) {
+        
+        $modelUser = new ModelUsers();
+        
         $model['nombre'] = htmlentities($model['nombre']);
         $model['apellido'] = htmlentities($model['apellido']);
         $model['correo']= htmlentities($model['correo']);
@@ -23,8 +28,28 @@ class ModelEmployees extends Model{
             Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows($this->con->link) == 0) return false;
-        else return true;
+        if (mysql_affected_rows(conexion::$link))
+        {
+            $idEmployee = mysql_insert_id( conexion::$link );
+            
+            $modelUserData = array();
+            $modelUserData[ 'usuario' ] = $model[ 'correo' ];
+            $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'password' ] );
+            $modelUserData[ 'tipo' ] = 2;
+            
+            if( $modelUser->add( $modelUserData ) )
+            {
+                $idUSer = mysql_insert_id( conexion::$link );
+                $query = "INSERT INTO usuarios_tipos (`USUARIO_ID` ,`TIPO` ,`TIPO_ID`)VALUES ('{$idUSer}', '1', '{$idEmployee}')";
+                mysql_query( $query );
+              return true;
+            }
+            else
+              return false;
+    
+        }else
+        return true;
+
     }
 
     public function delete($model) {

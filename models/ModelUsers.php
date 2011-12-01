@@ -10,6 +10,12 @@ class ModelUsers extends Model {
     public function __construct() {
         parent::__construct();
     }
+    private $affectedId=0;
+    
+    public function getAffectedId()
+    {
+        return ( $this->affectedId );
+    }
 
     public function add($model) {
         //depurar los datos antes de ponerlo en la consulta
