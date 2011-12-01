@@ -326,7 +326,6 @@ $(document).ready(function(){
                 },
                 success: function( data )
                 {                            
-                    alert(data);
                     $(".ajaxloader").html( "" );
                     if( !data.return )
                     {
