@@ -8,7 +8,6 @@ $validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']],1);
 if (!$validateUser->validateLevel()){
     die("<script type=\"text/javascript\">alert('No tiene autorizacion para estar aqui');location.href='index.php'</script>");
 }
->>>>>>> origin/master
 
 $title = "Administrador de Carreras";
 
