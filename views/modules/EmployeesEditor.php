@@ -59,7 +59,7 @@ include ("../jstagsforajax.html");
     <div>
         <input type="text" name="correo" id="correo" value="<?=$arrData['correo'];?>"/>        
     </div>
-        <h4>Telenofo</h4>
+        <h4>Telefono</h4>
     <div>
         <input type="text" name="telefono" id="telefono" value="<?=$arrData['telefono'];?>"/>        
     </div>
