@@ -67,9 +67,14 @@ $(document).ready(function(){
             }
         }
         
-        if (!(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($("#correo").val())))){
+        if ($("#correo").val() == ""){
+            alert("El correo es requerido");
             $("#correo").focus();
-            alert('El correo es requerido o incorrecto');
+            return false;
+        }
+        else if(!validaemail($("#correo").val())){
+            alert("El correo no es valido");
+            $("#correo").focus();
             return false;
         }
         if ($("#modificar").length){
@@ -285,12 +290,15 @@ $(document).ready(function(){
             alert( "El apellido es requerido" );
             return false; 
         }
-        if( !(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($("#correo").val()))) )
-        {
-            e.preventDefault();
+        if ($("#correo").val() == ""){
+            alert("El correo es requerido");
             $("#correo").focus();
-            alert( "El correo es requerido o es incorrecto" );
-            return false; 
+            return false;
+        }
+        else if(!validaemail($("#correo").val())){
+            alert("El correo no es valido");
+            $("#correo").focus();
+            return false;
         }
         if( $("#password").val().length < 8 )
         {
@@ -437,6 +445,5 @@ $(document).ready(function(){
             });                    
         }
         return false;
-    })
-    
+    });
 });

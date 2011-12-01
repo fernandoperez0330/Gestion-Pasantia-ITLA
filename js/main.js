@@ -20,6 +20,10 @@ $(document).ready(function(){
             $("#correo").focus();
             alert('El correo es requerido');
             return false;
+        }else if (!validaemail($("#correo").val())){
+            $("#correo").focus();
+            alert('El correo no es valido');
+            return false;
         }
         if ($("#sugerencia").val() == ""){
             $("#correo").focus();
@@ -130,10 +134,18 @@ $(document).ready(function(){
         error = false;
         frmid = $(this).attr('id') + " ";
         var domloading = "#" + frmid + " .ajaxloader";
-        if ($("#usuario").val() == "") 
+        if ($("#usuario").val() == ""){
+            alert('El correo es requerido');
+            $("#usuario").focus();
             error = true;
-        if ($("#clave").val() == "")
+        } 
+            
+        if ($("#clave").val() == ""){
+            alert('La clave es requerida');
+            $("#clave").focus();
             error = true;
+        }
+        
         if (error){
         //
             
@@ -176,11 +188,17 @@ $(document).ready(function(){
             return false;
         }
         
-        if (!(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($(frmid  + "#correo").val())))) {        
-            alert("El correo es requerido o es incorrecto");
+        if ($(frmid  + "#correo").val() == ""){
+            alert("El correo es requerido");
             $(frmid  + "#correo").focus();
             return false;
         }
+        else if(!validaemail($(frmid  + "#correo").val())){
+            alert("El correo no es valido");
+            $(frmid  + "#correo").focus();
+            return false;
+        }
+        
         if ($(frmid  + "#password").val().length < 8 ) {            
             alert("El password es requerido o es incorrecto");
             $(frmid  + "#password").focus();
@@ -303,13 +321,12 @@ $(document).ready(function(){
                 success: function( data )
                 {
                     $(DOMajaxloading).html( "" );
-                    alert(data);
-                    /*if( data.return ){
+                    if( data.return ){
                         alert("La solicitud se ha enviado correctamente, esperar a que los operadores aprueben su solicitud");
                     }
                     else{
                         alert(data.msg);
-                    }*/
+                    }
                         
                 }
             });
