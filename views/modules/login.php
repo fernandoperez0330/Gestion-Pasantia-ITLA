@@ -1,5 +1,5 @@
 <div id="loginarea">
-    <form action="<?= __URLROOT__ ?>ajax.accesslogin.php" name="frmlogin" id="frmlogin" method="post">
+    <form action="ajax.accesslogin.php" name="frmlogin" id="frmlogin" method="post">
         <h3>Inicio de sesion</h3>
         <h4>Email</h4>
         <div><input type="text" name="usuario" id="usuario" value="" /></div>

@@ -70,5 +70,7 @@ include ("../jstagsforajax.html");
     <br/>
     <div>
         <input type="submit" name="<?=$btnSubmit['name']?>" id="<?=$btnSubmit['name']?>" title="<?=$btnSubmit['title']?>" value="<?=$btnSubmit['value']?>"/>
+        <span class="ajaxloader">&nbsp;</span>
     </div>
+    
 </form>

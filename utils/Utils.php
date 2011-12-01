@@ -18,6 +18,14 @@ class Utils {
     public static function logQryError($query,$error,$functionname = "N/A",$classname  = "N/A"){
         echo $error;
     }
+    
+    /**
+     * funcion para encriptar las contrasenas de acceso a utilzar
+     */
+    public static function encryptPassword($password){
+        return md5($password);
+        
+    }
 }
 
 ?>

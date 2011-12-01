@@ -1,5 +1,12 @@
 <?php
-require_once('config/Config.php');
+require_once("include/main.inc.php");
+
+require_once("models/Model.php");
+require_once("models/ModelUsers.php");
+$validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']]);
+if ($validateUser->validateLevel()){
+    header("location: controlPanel.php");
+}
 $title = "Inicio de Sesion";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";

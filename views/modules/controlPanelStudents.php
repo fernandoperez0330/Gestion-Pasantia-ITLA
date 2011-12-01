@@ -1,7 +1,7 @@
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+<div>
+    <p>Bievenido <strong><?=$nivel;?></strong> <a href="logout.php">Cerrar Session</a></p>
+</div>
+<div> 
+    <ul>
+    </ul>
+</div>

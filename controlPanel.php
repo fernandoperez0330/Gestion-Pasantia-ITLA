@@ -1,5 +1,12 @@
 <?php
-require_once('config/Config.php');
+require("include/main.inc.php");
+
+require("models/Model.php");
+require("models/ModelUsers.php");
+
+//solo usurios logueados
+$validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']]);
+
 $title = "Panel de control";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
@@ -30,7 +37,21 @@ $meta['description'] = "";
                 ?>
             </div>
             <div id="site_content">
-                <?php include("views/modules/ControlPanelAdmin.php"); ?>
+                <?php 
+                if ($validateUser->validateLevel()){
+                    $keynivel = $_SESSION[Config::$arrKeySession['user']][ValidateUser::$keylevelSession];
+                    $nivel = COnfig::$arrUserLevels[$keynivel];
+                    switch($keynivel){
+                        case 1: //administrador
+                            include("views/modules/controlPanelAdmin.php");
+                            break;
+                        case 2: //estudiante
+                            include("views/modules/controlPanelStudents.php");
+                            break;
+                    }
+                }else
+                    echo "<h3>No tiene autorizacion para estar en esta area.</h3>";
+                ?>
             </div>
             <?php include("views/footer.html"); ?>
         </div>

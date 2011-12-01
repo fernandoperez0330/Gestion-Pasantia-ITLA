@@ -1,8 +1,14 @@
 <?php
-require_once('config/Config.php');
-require_once('config/conexion.php');
-require_once('models/Model.php');
-require_once('models/ModelCareers.php');
+require("include/main.inc.php");
+require('models/Model.php');
+require('models/ModelCareers.php');
+
+//solo para administradores
+$validateUser = new ValidateUser($_SESSION[Config::$arrKeySession['user']],1);
+if (!$validateUser->validateLevel()){
+    die("<script type=\"text/javascript\">alert('No tiene autorizacion para estar aqui');location.href='index.php'</script>");
+}
+>>>>>>> origin/master
 
 $title = "Administrador de Carreras";
 

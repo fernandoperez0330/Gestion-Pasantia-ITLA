@@ -1,11 +1,7 @@
 <?php
-
-session_start();
-require("config/Config.php");
-require("config/Conexion.php");
+require("include/main.inc.php");
 require("models/Model.php");
 require("models/ModelCompanies.php");
-require("utils/Utils.php");
 require("utils/AjaxHandler.php");
 $handler = new AjaxHandler();
 $model = new ModelCompanies();

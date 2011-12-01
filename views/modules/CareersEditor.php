@@ -1,9 +1,8 @@
 <?php
-
-require_once("../../config/Config.php");
-require_once("../../config/Conexion.php");
-require_once("../../models/Model.php");
-require_once("../../models/ModelCareers.php");
+define("URLROOT","../../");
+require(URLROOT . "include/main.inc.php");
+require_once(URLROOT . "models/Model.php");
+require_once(URLROOT . "models/ModelCareers.php");
 
 if( isset( $_GET[ 'id' ] ) )
 {
