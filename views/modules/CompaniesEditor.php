@@ -1,8 +1,9 @@
 <?php 
-require_once("../../config/Config.php");
-require_once("../../config/Conexion.php");
-require_once("../../models/Model.php");
-require_once("../../models/ModelCompanies.php");
+define("URLROOT","../../");
+require(URLROOT . "include/main.inc.php");
+require(URLROOT . "models/Model.php");
+require(URLROOT . "models/ModelCompanies.php");
+
 if (isset($_GET['id'])){    
     $_GET['id'] = $_GET['id'] + 0;
     
