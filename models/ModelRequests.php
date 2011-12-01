@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Clase para modelo de las solicitudes de pasantias
  * @version 1.0
  * @author Fernando Perez
  */
-class ModelRequests extends Model{
-    
+class ModelRequests extends Model {
+
     public function __construct() {
         parent::__construct();
     }
@@ -14,10 +15,10 @@ class ModelRequests extends Model{
         $model['estudiante_id'] = $model['estudiante_id'] + 0;
         $model['pasantia_id'] = $model['pasantia_id'] + 0;
         $model['estatus'] = mysql_escape_string(htmlentities(strip_tags($model['estatus'])));
-        
-        $query = "INSERT INTO {$this->con->prefTable}solicitudes(ESTUDIANTE_ID,PASANTIA_ID,ESTATUS)".
-                     "VALUES({$model['estudiante_id']},{$model['pasantia_id']},'{$model['estatus']}')";
-                     $result = mysql_query($query, $this->con->link);
+
+        $query = "INSERT INTO {$this->con->prefTable}solicitudes(ESTUDIANTE_ID,PASANTIA_ID,ESTATUS)" .
+                "VALUES({$model['estudiante_id']},{$model['pasantia_id']},'{$model['estatus']}')";
+        $result = mysql_query($query, $this->con->link);
         if (!$result) {
             Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
             return false;
@@ -61,11 +62,11 @@ class ModelRequests extends Model{
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT S.ID,S.ESTUDIANTE_ID,S.PASANTIA_ID,S.ESTATUS,E.NOMBRE ESTUDIANTE,P.NOMBRE PASANTIA,EM.NOMBRE EMPRESA FROM {$this->con->prefTable}solicitudes S ".
-                "INNER JOIN {$this->con->prefTable}estudiantes E on S.ESTUDIANTE_ID = E.ID ".
-                "INNER JOIN {$this->con->prefTable}pasantias P on s.PASANTIA_ID = P.ID ".
-                "INNER JOIN {$this->con->prefTable}empresas EM on p.empresa_id = EM.ID ".
-                 "$where";
+        $query = "SELECT S.ID,S.ESTUDIANTE_ID,S.PASANTIA_ID,S.ESTATUS,E.NOMBRE ESTUDIANTE,P.NOMBRE PASANTIA,EM.NOMBRE EMPRESA FROM {$this->con->prefTable}solicitudes S " .
+                "INNER JOIN {$this->con->prefTable}estudiantes E on S.ESTUDIANTE_ID = E.ID " .
+                "INNER JOIN {$this->con->prefTable}pasantias P on s.PASANTIA_ID = P.ID " .
+                "INNER JOIN {$this->con->prefTable}empresas EM on p.empresa_id = EM.ID " .
+                "$where";
         $result = mysql_query($query, $this->con->link);
         if (!$result) {
             Utils::logQryError($query, mysql_error($this->con->link), __FUNCTION__, __CLASS__);
@@ -97,4 +98,5 @@ class ModelRequests extends Model{
     }
 
 }
+
 ?>

@@ -76,9 +76,12 @@ class ModelStudents extends Model {
 
         $modelCareers = new ModelCareers();
 
-        $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}estudiantes WHERE ID=$prkey";
+        $query = "SELECT E.ID,E.NOMBRE,E.CORREO,E.TELEFONO,TELEFONO2,CELULAR,CARRERA_ID,C.NOMBRE CARRERA ".
+                 "FROM {$this->con->prefTable}estudiantes E INNER JOIN {$this->con->prefTable}carreras C ON E.CARRERA_ID = C.ID ".
+                 "WHERE E.ID=$prkey";
         $result = mysql_query($query);
         if (!$result) {
+            Utils::logQryError($query,  mysql_error(), __FUNCTION__,__CLASS__);
             return false;
         }
         $students = array();

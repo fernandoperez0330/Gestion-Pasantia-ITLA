@@ -52,7 +52,7 @@ $meta['description'] = "";
                         case 2: //estudiante
                             $model = new ModelStudents();
                             $modelRequest = new ModelRequests();
-                            $arrRequests = $modelRequest->findsome(array('USUARIO_ID'=>$_SESSION[Config::$arrKeySession['user']]['id']));
+                            $arrRequests = $modelRequest->findsome(array('S.ESTUDIANTE_ID'=>$_SESSION[Config::$arrKeySession['user']]['id']));
                             $arrStudent = $model->find($_SESSION[Config::$arrKeySession['user']]['tipo_id']);
                             include("views/modules/controlPanelStudents.php");
                             break;
