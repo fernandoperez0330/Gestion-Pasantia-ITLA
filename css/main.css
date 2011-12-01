@@ -397,3 +397,22 @@ background-color:white;
     width:45%;
 } 
 
+#loadingajax{
+text-align:center;
+background-color:#ffffff;
+padding-top:5px;
+padding-left:2px;
+padding-right:2px;
+padding-bottom:5px;
+margin-bottom:10px;
+position:fixed;
+top:0px;
+font-weight:bold;
+left:45em; 
+border:1px solid #cccccc;
+color:#444444;
+z-index:2;
+-moz-border-radius-bottomleft:10px;
+-moz-border-radius-bottomright:10px;
+}
+

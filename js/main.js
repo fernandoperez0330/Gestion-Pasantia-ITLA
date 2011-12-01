@@ -1,6 +1,13 @@
 
 $(document).ready(function(){  
-
+    $("#loadingajax").ajaxStart(function(){
+        $(this).fadeIn();
+    });
+    
+    $("#loadingajax").ajaxStop( function(){
+       $(this).fadeOut();
+    });
+    
     //area para la listas de las companias
     if ($("#areacompaniesmanager").length){
         $("#areacompaniesmanager").ready(function(){
@@ -26,14 +33,14 @@ $(document).ready(function(){
     }
     /* area de para la lista de empleados**/
     
-    if( $("#areaemployeesmanager").length)
+        if( $("#areaemployeesmanager").length)
     {
         $("#areaemployeesmanager").ready( function()
         {            
             loadajaxcontent('views/modules/EmployeesList.php','get','',$('.ajaxloader'),$("#areaemployeesmanager") );                                      
         });
     }
-       
+        
     
     //area para las lista de las carreras
     if( $("#areacareersmanager").length)
