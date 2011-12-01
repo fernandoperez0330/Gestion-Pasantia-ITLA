@@ -1,5 +1,8 @@
 Gestion de pasantia version 1.0
 
+***************Version online*****************
+http://gestionpasantia.webcindario.com
+
 Changelogs
 	v1.0: creacion del proyecto
 
@@ -9,7 +12,6 @@ Descripcion
 Desarrolladores
 	-Fernando Perez
 	-Jansel Valentin
-	-Glory Hignacio
 
 Requirimientos
 	
@@ -21,5 +23,7 @@ Componentes utilizados
 	-MySQL 5
 	-libreria: jquery version 1.7
 	-libreria: PEAR phpDocumentor 1.2
+	
+
 	
 Instituto Tecnologico Las Americas (ITLA)
