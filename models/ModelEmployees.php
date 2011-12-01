@@ -28,18 +28,18 @@ class ModelEmployees extends Model{
             Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         {
             $idEmployee = mysql_insert_id( $this->con->link );
             
             $modelUserData = array();
             $modelUserData[ 'usuario' ] = $model[ 'correo' ];
-            $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'password' ] );
+            $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'clave' ] );
             $modelUserData[ 'tipo' ] = 1;
             
             if( $modelUser->add( $modelUserData ) )
             {
-                $idUSer = mysql_insert_id( conexion::$link );
+                $idUSer = mysql_insert_id( $this->con->link );
                 $query = "INSERT INTO usuarios_tipos (`USUARIO_ID` ,`TIPO` ,`TIPO_ID`)VALUES ('{$idUSer}', '1', '{$idEmployee}')";
                 mysql_query( $query );
               return true;
