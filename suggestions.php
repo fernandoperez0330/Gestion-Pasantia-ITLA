@@ -37,7 +37,7 @@ $meta['description'] = "";
             <div id="site_content">
                 <?php include("views/sidebar.html"); ?>
                 <div id="content">
-                    <!--aqui va el contenido dinamico-->
+                    <?php include("views/modules/SuggestionEditor.php"); ?>
                 </div>
             </div>
             <?php include("views/footer.html"); ?>

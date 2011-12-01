@@ -33,7 +33,9 @@ $meta['description'] = "";
             <div id="site_content">
                 <?php include("views/sidebar.html"); ?>
                 <div id="content">
-                    <!--aqui va el contenido dinamico-->
+                    <h1>Modulo en construcci&oacute;n</h1>
+                    <img src="resources/construction.png"/>
+                    <p>Disculpe los incovenientes</p>
                 </div>
             </div>
             <?php include("views/footer.html"); ?>

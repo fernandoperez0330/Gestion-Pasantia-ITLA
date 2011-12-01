@@ -5,8 +5,53 @@ $(document).ready(function(){
     });
     
     $("#loadingajax").ajaxStop( function(){
-       $(this).fadeOut();
+        $(this).fadeOut();
     });
+    
+    
+    //formualario de sugerencias
+    $("#frmsuggestion").submit(function(){
+        if ($("#nombre").val() == ""){
+            $("#nombre").focus();
+            alert('El nombre es requerido');
+            return false;
+        }
+        if ($("#correo").val() == ""){
+            $("#correo").focus();
+            alert('El correo es requerido');
+            return false;
+        }
+        if ($("#sugerencia").val() == ""){
+            $("#correo").focus();
+            alert('La sugerencia es requerida');
+            return false;
+        }
+       domloading = $("#frmsuggestion .ajaxloader")
+       form = $(this);
+        //ejecutar el contenido del archivo ajax
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            //dataType: 'JSON',
+            beforeSend:function(){
+                $(domloading).html("Cargando...");
+            },
+            error:function(data,tipo,error){
+                $(domloading).html("Ocurrio un error, favor intentar de nuevo");
+            },
+            success: function(data){
+                if (data.return){
+                    $(form)[0].reset();
+                    $(domloading).html("La sugerencia ha sido enviada, Gracias :D");
+                    $(domloading).fadeIn();
+                }
+            }
+        });
+        return false; 
+        
+    });
+    
     
     //area para la listas de las companias
     if ($("#areacompaniesmanager").length){
@@ -33,7 +78,7 @@ $(document).ready(function(){
     }
     /* area de para la lista de empleados**/
     
-        if( $("#areaemployeesmanager").length)
+    if( $("#areaemployeesmanager").length)
     {
         $("#areaemployeesmanager").ready( function()
         {            
@@ -250,7 +295,7 @@ $(document).ready(function(){
                 url: $(this).attr( 'href' ),
                 type: 'get',
                 data: $(this).serialize(),
-                dataType: "JSON",
+                //dataType: "JSON",
                 beforeSend : function()
                 {
                     $(DOMajaxloading).html( "Cargando..." );
@@ -258,12 +303,13 @@ $(document).ready(function(){
                 success: function( data )
                 {
                     $(DOMajaxloading).html( "" );
-                    if( data.return ){
+                    alert(data);
+                    /*if( data.return ){
                         alert("La solicitud se ha enviado correctamente, esperar a que los operadores aprueben su solicitud");
                     }
                     else{
                         alert(data.msg);
-                    }
+                    }*/
                         
                 }
             });

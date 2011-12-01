@@ -24,19 +24,20 @@ if (!isset($_SESSION[Config::$arrKeySession['user']]['tipo_id'])){
     $arrRequests['estudiante_id'] = $_SESSION[Config::$arrKeySession['user']]['tipo_id'];
     //poner el estatus pendiente
     $arrRequests['estatus'] = "P";
-    //verificar si el estudiante existe
-    if (!$modelStudent->find($arrRequests['estudiante_id'])){
+    //verificar si el usuario es un estudiante y si existe
+    if ($_SESSION[Config::$arrKeySession['user']]['tipo'] != 2 || !$modelStudent->find($arrRequests['estudiante_id'])){
         $handler->setAt ('msg', 'Este usuario no parece ser un estudiante, debes de iniciar sesion como estudiante para solicitar pasantia');
     }
     //verificar si ya tiene una solicitud este estudiante
-    else if (!$model->findsome(array("ESTUDIANTE_ID"=>$arrRequests['estudiante_id']))){
-       if ($model->add($arrRequests)){
+    elseif ($model->findsome(array("ESTUDIANTE_ID"=>$arrRequests['estudiante_id']))){
+       $handler->setAt ('msg', 'Ya tiene una solicitud pendiente o activa');
+    } else {
+        if ($model->add($arrRequests)){
             $handler->setAt('return', true);
         }  
-    } else 
-        $handler->setAt ('msg', 'Ya tiene una solicitud pendiente o activa');
+    }
+        
 }
-    
-header('Content-type: application/json');
+//header('Content-type: application/json');
 echo $handler->toJSON();
 ?>

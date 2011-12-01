@@ -346,8 +346,10 @@ table tr td
 }
 
 #arealistinternships .internships{
+    margin-right:5px;
     width:250px;
     float:left;
+    border-right:1px dashed #cccccc;
 }
 
 #arealistinternships .internships p{

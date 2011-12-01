@@ -1,5 +1,5 @@
 <div id="areapanelcontrol">
-    <div id="arealnklogout"><a href="logout.php"><img src="resources/bad.gif" width="14" border="0"/>Cerrar Session</a></div>
+    <div id="arealnklogout"><a href="logout.php"><img src="resources/bad.gif" width="14" border="0"/>&nbsp;Cerrar Session</a></div>
     <h2>Panel de control</h2>
     <div id="areaimgprofile">
         <img id="imgprofile" src="resources/support.png"/>

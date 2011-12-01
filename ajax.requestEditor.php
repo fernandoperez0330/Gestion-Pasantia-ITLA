@@ -17,7 +17,7 @@ if (isset($_POST['id'])) {
         $handler->setAt('return', true);
     }
 }
-//header('Content-type: application/json');
+header('Content-type: application/json');
 echo $handler->toJSON();
 ?>
   

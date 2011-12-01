@@ -37,6 +37,7 @@ $meta['description'] = "";
             </div>
             <div id="site_content">
                     <h1>Pasantias activas</h1>
+                    <p>Lista de pasantias activas del sistema</p>
                     <div id="arealistinternships">
                         <?php
                         foreach($arrInternships as $internship){
