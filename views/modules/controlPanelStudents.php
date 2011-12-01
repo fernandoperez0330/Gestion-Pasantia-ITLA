@@ -23,8 +23,8 @@
             <p>No.Solicitud.: <strong><?=$request['ID']?></strong></p>
             <p>Nombre.: <strong><?=$request['PASANTIA']?></strong></p>
             <p>Estatus.: <strong><?=Config::$arrEstatus[$request['ESTATUS']]?></strong></p>
+            <p><a href="pdf.letterinternship.php?id=<?=$request['ID']?>" title="Generar Carta">Carta</a></p>
             <?php
-            
             }
         } else {
             ?>
