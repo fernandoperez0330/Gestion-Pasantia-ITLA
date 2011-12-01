@@ -23,19 +23,19 @@ class ModelEmployees extends Model{
         
         $query = "INSERT INTO {$this->con->prefTable}empleados(NOMBRE,APELLIDO,CORREO,TELEFONO) ".
                  "VALUES('{$model['nombre']}','{$model['apellido']}','{$model['correo']}','{$model['telefono']}')";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
             Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
         if (mysql_affected_rows(conexion::$link))
         {
-            $idEmployee = mysql_insert_id( conexion::$link );
+            $idEmployee = mysql_insert_id( $this->con->link );
             
             $modelUserData = array();
             $modelUserData[ 'usuario' ] = $model[ 'correo' ];
             $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'password' ] );
-            $modelUserData[ 'tipo' ] = 2;
+            $modelUserData[ 'tipo' ] = 1;
             
             if( $modelUser->add( $modelUserData ) )
             {
@@ -48,7 +48,7 @@ class ModelEmployees extends Model{
               return false;
     
         }else
-        return true;
+        return false;
 
     }
 
