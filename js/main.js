@@ -71,24 +71,41 @@ $(document).ready(function(){
             return false;
         }
         
-        if ($(frmid  + "#correo").val() == "") {
-            alert("El correo es requerido");
+        if (!(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($(frmid  + "#correo").val())))) {        
+            alert("El correo es requerido o es incorrecto");
             $(frmid  + "#correo").focus();
             return false;
         }
         
-        if ($(frmid  + "#telefono").val() == "") {
-            alert("El telefono es requerido");
+        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono").val()))) {
+            alert("El telefono es requerido o es incorrecto");
             $(frmid  + "#telefono").focus();
             return false;
         }
-        
-        
+        if( $(frmid  + "#telefono2").val() != "" ){
+        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
+            alert("El telefono2 es requerido o es incorrecto");
+            $(frmid  + "#telefono2").focus();
+            return false;
+        }
+        }
+        if( $(frmid  + "#celular").val() != "" ){
+        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
+            alert("El celular es requerido o es incorrecto");
+            $(frmid  + "#celuar").focus();
+            return false;
+        }
+        }
+        if ($(frmid  + "#password").val() == "0") {
+            alert("El password es requerido o es incorrecto");
+            $(frmid  + "#password").focus();
+            return false;
+        }
         if ($(frmid  + "#carrera").val() == "0") {
             alert("La carrera en la que pertenece el estudiante es requerida");
             $(frmid  + "#carrera").focus();
             return false;
-        }
+        }        
         
         if ($(frmid  + "#foto").val() == "") {
             alert("La foto es requerida");

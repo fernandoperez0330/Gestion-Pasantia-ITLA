@@ -14,22 +14,12 @@ $(document).ready(function(){
     {
         $(".eliminar").click( function( e )
                              {
-                                e.preventDefault();
-                                $.ajax({
-                                    url:$(this).attr('id'),
-                                    type:'post',
-                                    dataType:'JSON',
-                                    beforeSend:function()
-                                    {
-                                        $(".ajaxloader").html( "Cargando..." );
-                                    },
-                                    success:function( data )
-                                    {
-                                        $(".ajaxloader").html( "" );
-                                        
-                                    }
-                                       })
-                             })
+                                if( confirm( "Desea realmnte eliminar es ta carrera ?" ) )
+                                {   
+                                return true; 
+                                }
+                                return false;
+                             });
     }
 
 

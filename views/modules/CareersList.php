@@ -29,8 +29,8 @@ include("../jstagsforajax.html");
                 <tr>
                     <td><?= $carrer['NOMBRE']; ?></td>
                     <td><?= $carrer['DESCRIPCION']; ?></td>                    
-                    <td><a href="views/modules/CareersList.php" id="ajax.careerEditor.php?delete=<?=$carrer[ 'ID' ]?>" class="eliminar">Eliminar</a>&nbsp &nbsp<a href="views/modules/CareersEditor.php?id=<?= $carrer['ID']; ?>" class="ajaxredirect">Actualizar</a></td>
-                </tr>    
+                    <td><a href="careersManager.php?del=<?=$carrer['ID']?>" class="eliminar">Eliminar</a>&nbsp &nbsp<a href="views/modules/CareersEditor.php?id=<?= $carrer['ID']; ?>" class="ajaxredirect">Actualizar</a></td>
+                </tr>        
                 <?php
             }
         } else {

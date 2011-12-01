@@ -1,6 +1,23 @@
 <?php
 require_once('config/Config.php');
+require_once('config/conexion.php');
+require_once('models/Model.php');
+require_once('models/ModelCareers.php');
+
 $title = "Administrador de Carreras";
+
+//mensaje de notificacion de alguna accion
+$msgnot = "";
+//carrera a eliminar
+if (isset($_GET['del'])){
+    $_GET['del'] = $_GET['del'] + 0;
+    $model = new ModelCareers();
+    $modelElim=array();
+    $modelElim[ 'id' ]=$_GET[ 'del' ];    
+    $return = $model->delete( $modelElim );
+    if( $return ) $msgnot = "La carrera se elimino correctamente";
+    else "La carrera no se puedo elminiar, favor intente de nuevo, si el problema persiste, favor reportar";
+}
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
 $meta['description'] = "";
@@ -30,7 +47,8 @@ $meta['description'] = "";
                 ?>
             </div>
             <div id="site_content">
-                <div id="areacareersmanager"></div>
+                <?=$msgnot  ? "<div class=\"msg\">$msgnot</div>" : "";?>
+                <div id="areacareersmanager"></div>                
             </div>
             <?php include("views/footer.html"); ?>
         </div>
