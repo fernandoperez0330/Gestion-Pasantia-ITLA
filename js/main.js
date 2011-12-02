@@ -20,6 +20,29 @@ $(document).ready(function(){
             loadajaxcontent('views/modules/CareersList.php','get','',$('.ajaxloader'),$("#areacareersmanager") );                                      
         });
     }
+    
+    /**
+     * area para los estudiantes
+     **/
+    if( $("#areastudentsmanager").length)
+    {
+        $("#areastudentsmanager").ready( function()
+        {
+            loadajaxcontent('views/modules/StudentsList.php','get','',$('.ajaxloader'),$("#areastudentsmanager") );                                      
+        });
+    }
+    
+    /**
+     * area para la animacion de password
+     **/
+    if( $("#password").length )
+    {
+        $( "#password" ).passStrength({
+            fisrtMsg:" La clave debe contener mas de 7 caracteres",
+            imageBad:"resources/bad.gif",
+            imageOk:"resources/ok.gif"
+            } );
+    }
    
     /************************************************************************/
     /******************************formularios*******************************/
@@ -64,7 +87,10 @@ $(document).ready(function(){
         return false;  
     });
     
-    $("#frmregister").submit(function(){
+    
+    
+    
+    $("#frmregister").submit(function( e ){        
         error = false;
         frmid = "#" + $(this).attr('id') + " ";
         if ($(frmid  + "#nombre").val() == "") {
@@ -78,7 +104,11 @@ $(document).ready(function(){
             $(frmid  + "#correo").focus();
             return false;
         }
-        
+        if ($(frmid  + "#password").val().length < 8 ) {            
+            alert("El password es requerido o es incorrecto");
+            $(frmid  + "#password").focus();
+            return false;
+        }            
         if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono").val()))) {
             alert("El telefono es requerido o es incorrecto");
             $(frmid  + "#telefono").focus();
@@ -86,7 +116,7 @@ $(document).ready(function(){
         }
         if( $(frmid  + "#telefono2").val() != "" ){
         if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
-            alert("El telefono2 es requerido o es incorrecto");
+            alert("El telefono2 es incorrecto");
             $(frmid  + "#telefono2").focus();
             return false;
         }
@@ -97,11 +127,6 @@ $(document).ready(function(){
             $(frmid  + "#celuar").focus();
             return false;
         }
-        }
-        if ($(frmid  + "#password").val() == "0") {
-            alert("El password es requerido o es incorrecto");
-            $(frmid  + "#password").focus();
-            return false;
         }
         if ($(frmid  + "#carrera").val() == "0") {
             alert("La carrera en la que pertenece el estudiante es requerida");
@@ -114,26 +139,59 @@ $(document).ready(function(){
             $(frmid  + "#foto").focus();
             return false;
         }
-        if (confirm("Esta todo correcto?")){
+        
+        if( $("#modificar").length )
+        {
             $.ajax({
-                url: "ajax.postStudents.php",
-                type: $(this).attr('method'),
+                url: $(this).attr( 'action' ),
+                type: $(this).attr( 'method' ),
                 data: $(this).serialize(),
-                dataType: 'JSON',
-                beforeSend:function(){
-                    $(domloading).html("Cargando...");
-                },
-                success: function(data){
-                    $(domloading).html("");
-                    if (data['return']){
-                        location.href=data['redirect'];
+                dataType: "JSON",
+                beforeSend : function()
+                {
+                  $(".ajaxloader").html( "Cargando..." );
+                },                
+                success: function( data )
+                {
+                    $(".ajaxloader").html( "" );
+                    if( data.return ){
+                    alert( "El Usuario ha sido Actualizado correctamente" );                    
+                    $("#frmregister")[0].reset();
+                    $("span").find("p").remove();
+                    $(".ajaxredirect").click();
                     }
-                    else{ 
-                        alert('login incorrecto');
-                        location.href=data['redirect'];
-                    }
+                    else                    
+                    alert( "El Usuario no ha sido Actualizado , favor intentelo nuevamente" );
                 }
-            });   
+            });            
+        }
+        else{
+            e.preventDefault();
+        if(confirm("Esta todo correcto?")){
+            $.ajax({
+                url: $(this).attr( 'action' ),
+                type: $(this).attr( 'method' ),
+                data: $(this).serialize(),
+                dataType: "JSON",
+                beforeSend : function()
+                {
+                  $(".ajaxloader").html( "Cargando..." );
+                },
+                success: function( data )
+                {
+                    $(".ajaxloader").html( "" );
+                    if( data.return ){
+                    alert( "El Usuario ha sido agregado correctamente" );
+                    $("#frmregister")[0].reset();
+                    $("span").find("p").remove();
+                    $(".ajaxredirect").click();
+                    }
+                    else
+                    alert( "El Usuario no ha sido agregado , favor intentelo nuevamente" );
+                }
+            });
+  
+        }
         }
         return false;
     });

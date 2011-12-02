@@ -5,7 +5,7 @@
     <ul>
         <li><a href="companiesManager.php">Gestion de Empresas</a></li>
         <li><a href="careersManager.php">Gestion de Carreras</a></li>
-        <li><a href="careersManager.php">Gestion de Estudiantes</a></li>
+        <li><a href="studentsManager.php">Gestion de Estudiantes</a></li>
         <li><a href="careersManager.php">Gestion de Empleados</a></li>
         <li><a href="careersManager.php">Gestion de Pasantias</a></li>
     </ul>

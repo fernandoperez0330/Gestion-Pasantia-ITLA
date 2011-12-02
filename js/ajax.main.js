@@ -13,13 +13,13 @@ $(document).ready(function(){
     if( $(".eliminar").length )
     {
         $(".eliminar").click( function( e )
-        {
-            if( confirm( "Desea realmnte eliminar es ta carrera ?" ) )
-            {   
-                return true; 
-            }
-            return false;
-        });
+                             {
+                                if( confirm( "Desea realmnte eliminar es ta carrera ?" ) )
+                                {   
+                                return true; 
+                                }
+                                return false;
+                             });
     }
 
 
@@ -44,21 +44,22 @@ $(document).ready(function(){
             return false;
         }
         
-        if ($("#telefono1").val() == ""){
+        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($("#telefono1").val()))){
             $("#telefono1").focus();
-            alert('El telefono 1 es requerido');
+            alert('El telefono 1 es requerido o incorrecto');
             return false;
         }
         
-        if ($("#telefono2").val() == ""){
+        if( $("#telefono2").val() !="" ){
+        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($("#telefono2").val()))){
             $("#telefono2").focus();
-            alert('El telefono 2 es requerido');
+            alert('El telefono 2 es  incorrecto');
             return false;
-        }
+        }}
         
-        if ($("#correo").val() == ""){
+        if (!(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($("#correo").val())))){
             $("#correo").focus();
-            alert('El correo es requerido');
+            alert('El correo es requerido o incorrecto');
             return false;
         }
         
@@ -92,13 +93,17 @@ $(document).ready(function(){
                     $('.ajaxloader').html("Cargando...");
                 },
                 error: function(data,type,error){
+                    alert(data);
+                    alert(type);
+                    alert(error);
                 },
                 success: function(data){
                     $('.ajaxloader').html("");
-                    if (data['return']) {
+                    alert(data);
+                /*if (data['return']) {
                         alert('La empresa ha sido agregada correctamente');
                         $(".ajaxredirect").click();
-                    }else alert('La empresa no ha podido ser agregada correctamente');
+                    }else alert('La empresa no ha podido ser agregada correctamente');*/
                 }
             }); 
         } 
@@ -159,7 +164,7 @@ $(document).ready(function(){
                     $(".ajaxloader").html( "Cargando..." )
                 },
                 error: function(data,type,error){
-                    alert(error); 
+                   alert(error); 
                 },
                 success: function( data )
                 {                            
