@@ -118,14 +118,14 @@ $(document).ready(function(){
             e.preventDefault();
             $("#nombre").focus();
             alert( "El nombre es requerido" );
-            return;
+            return false;
         }
         if( $("#descripcion").val()=="" )
         {
             e.preventDefault();
             $("#descripcion").focus();
             alert( "Es requerida una descripcion para la carrera" );
-            return; 
+            return false ; 
         }
         if( $("#modificar").length )
         {                    
@@ -174,6 +174,88 @@ $(document).ready(function(){
                         $(".ajaxredirect").click();
                     }else
                         alert( "la carrera no ha sido agregada correctamente" );
+                }
+                        
+            });                    
+        }
+        return false;
+    });
+    
+        /**************Formulario de Empleados*************/
+    $("#frmEmployeesEditor").submit( function( e )
+    {
+        if($("#nombre").val()=="")
+        {
+            e.preventDefault();
+            $("#nombre").focus();
+            alert( "El nombre es requerido" );
+            return false;
+        }
+        if( $("#apellido").val()=="" )
+        {
+            e.preventDefault();
+            $("#apellido").focus();
+            alert( "El apellido es requerido" );
+            return false; 
+        }
+        if( !(/^[\_]*[a-zA-Z0-9]+(\_|\.*)?[a-z0-9A-Z]+@[a-zA-Z0-9]+\.[a-z0-9A-Z]{3,6}$/.test(($("#correo").val()))) )
+        {
+            e.preventDefault();
+            $("#correo").focus();
+            alert( "El correo es requerido o es incorrecto" );
+            return false; 
+        }
+        if( !(/[0-9]+\-[0-9]+\-[0-9]+/.test($("#telefono").val())))
+        {
+            e.preventDefault();
+            $("#telefono").focus();
+            alert( "El telefono es requerido o es incorrecto" );
+            return false; 
+        }        
+        if( $("#modificar").length )
+        {                    
+            $.ajax( {
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize(),
+                dataType : "JSON",
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                success: function( data )
+                {
+                    $(".ajaxloader").html( "" );                            
+                    if( data.return)
+                    {
+                        alert( "El empleado ha sido actualizado exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "El empleado no ha sido actualizado correctamente" );
+                }
+                        
+            });
+        }
+        else
+        {                    
+            $.ajax( {                        
+                url : $( this ).attr( 'action' ),
+                type: $( this ).attr( 'method' ),
+                data: $( this ).serialize(),
+                //dataType : "JSON",                        
+                beforeSend: function()
+                {
+                    $(".ajaxloader").html( "Cargando..." )
+                },
+                success: function( data )
+                {                            
+                    $(".ajaxloader").html( "" );
+                    if( data.return )
+                    {
+                        alert( "El empleado ha sido agregado exitosamente" );
+                        $(".ajaxredirect").click();
+                    }else
+                        alert( "El empleado no ha sido agregado correctamente" );
                 }
                         
             });                    
