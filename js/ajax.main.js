@@ -320,12 +320,13 @@ $(document).ready(function(){
                 url : $( this ).attr( 'action' ),
                 type: $( this ).attr( 'method' ),
                 data: $( this ).serialize(),
-                dataType : "JSON",                        
+                //dataType : "JSON",                        
                 beforeSend: function(){
                     $(".ajaxloader").html( "Cargando..." )
                 },
                 success: function( data )
                 {                            
+                    alert(data);
                     $(".ajaxloader").html( "" );
                     if( !data.return )
                     {
