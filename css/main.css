@@ -346,10 +346,75 @@ table tr td
 }
 
 #arealistinternships .internships{
+    margin-right:5px;
     width:250px;
     float:left;
+    border-right:1px dashed #cccccc;
 }
 
 #arealistinternships .internships p{
     font-weight:bold;
 }
+
+/*area de panel de control (para estudiantes y administradores)*/
+#areapanelcontrol{
+    
+    
+}
+
+#areapanelcontrol #arealnklogout{
+    float:right;
+    width:200px;
+    text-align:right;
+}
+
+#areapanelcontrol img#imgprofile{
+float:left;
+margin-right:10px;
+/* This centers the image */
+display: block;
+margin-left: auto;
+margin-right: auto;
+
+/* This adds the border */
+padding:8px;
+border:solid;
+border-color: #dddddd #aaaaaa #aaaaaa #dddddd;
+border-width: 1px 2px 2px 1px;
+background-color:white;
+}
+
+
+#areapanelcontrol #areadataprofile{
+    margin-left:155px;
+}
+
+#areapanelcontrol #optionControlPanelAdmin{
+    font-size:1.5em;
+}
+
+#areapanelcontrol #optionControlPanelAdmin ul li{
+    display:block;
+    float:left;
+    width:45%;
+} 
+
+#loadingajax{
+text-align:center;
+background-color:#ffffff;
+padding-top:5px;
+padding-left:2px;
+padding-right:2px;
+padding-bottom:5px;
+margin-bottom:10px;
+position:fixed;
+top:0px;
+font-weight:bold;
+left:45em; 
+border:1px solid #cccccc;
+color:#444444;
+z-index:2;
+-moz-border-radius-bottomleft:10px;
+-moz-border-radius-bottomright:10px;
+}
+

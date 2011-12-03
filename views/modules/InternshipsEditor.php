@@ -70,7 +70,7 @@ include ("../jstagsforajax.html");
         <select name="carreras" id="carreras" size="5" class="selectwithsize" multiple>
             <?php
             foreach ($arrCarrers as $career) {
-                $sel = $arrData['empresa_id'] == $career['ID'] ? "selected=\"selected\"" : "";
+                $sel =  in_array($career['ID'],$arrData['carreras']) ? "selected=\"selected\"" : "";
                 echo "<option value=\"{$career['ID']}\" $sel>{$career['NOMBRE']}</option>";
             }
             ?>

@@ -1,5 +1,10 @@
 <?php
-require_once('config/Config.php');
+require("include/main.inc.php");
+require("models/Model.php");
+require("models/ModelInternship.php");
+
+$modelInternship = new ModelInternship();
+$arrInternships = $modelInternship->findsome(array());
 $title = "Sugerencias";
 //TODO: terminar de llenar los metatags
 $meta['keywords'] = "";
@@ -32,7 +37,7 @@ $meta['description'] = "";
             <div id="site_content">
                 <?php include("views/sidebar.html"); ?>
                 <div id="content">
-                    <!--aqui va el contenido dinamico-->
+                    <?php include("views/modules/SuggestionEditor.php"); ?>
                 </div>
             </div>
             <?php include("views/footer.html"); ?>

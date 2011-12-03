@@ -15,8 +15,17 @@ class Config {
                                     2=>'estudiantes'
                                 );
     
-    //arreglo de los indices de las sesiones 
+    /**
+     * arreglo de los indices de las sesiones 
+     */
     public static $arrKeySession = array('user'=>"gp_user");
+    
+    //estatus generales para el portal
+    public static $arrEstatus = array(
+                                    "P"=>"Pendiente",
+                                    "A"=>"Activo",
+                                    "E"=>"Inactivo"
+                                );
     
 }
 

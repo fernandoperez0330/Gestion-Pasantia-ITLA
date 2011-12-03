@@ -18,12 +18,12 @@ class ModelCareers extends Model{
         
         $query = "INSERT INTO {$this->con->prefTable}CARRERAS(NOMBRE,DESCRIPCION) ".
                  "VALUES('{$model['nombre']}','{$model['descripcion']}')";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         return true;
         return  false;
     }
@@ -35,7 +35,7 @@ class ModelCareers extends Model{
         if(!$result){
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         return true;
         return  false;
     }
@@ -45,7 +45,7 @@ class ModelCareers extends Model{
         $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}carreras WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
         $carreras = array(); 
@@ -63,9 +63,9 @@ class ModelCareers extends Model{
         }
         $where = $where != "" ? "WHERE $where" : "";
         $query = "SELECT ID,NOMBRE,DESCRIPCION FROM {$this->con->prefTable}carreras $where";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
         $numRows = mysql_num_rows($result);
@@ -84,12 +84,12 @@ class ModelCareers extends Model{
         $model['descripcion'] = htmlentities($model['descripcion']);
         
         $query = "UPDATE {$this->con->prefTable}carreras SET NOMBRE = '{$model['nombre']}',DESCRIPCION = '{$model['descripcion']}' WHERE ID={$model['id']}";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         return true;
         return  false;        
     }

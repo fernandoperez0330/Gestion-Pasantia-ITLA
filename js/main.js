@@ -1,6 +1,58 @@
 
 $(document).ready(function(){  
-
+    $("#loadingajax").ajaxStart(function(){
+        $(this).fadeIn();
+    });
+    
+    $("#loadingajax").ajaxStop( function(){
+        $(this).fadeOut();
+    });
+    
+    
+    //formualario de sugerencias
+    $("#frmsuggestion").submit(function(){
+        if ($("#nombre").val() == ""){
+            $("#nombre").focus();
+            alert('El nombre es requerido');
+            return false;
+        }
+        if ($("#correo").val() == ""){
+            $("#correo").focus();
+            alert('El correo es requerido');
+            return false;
+        }
+        if ($("#sugerencia").val() == ""){
+            $("#correo").focus();
+            alert('La sugerencia es requerida');
+            return false;
+        }
+       domloading = $("#frmsuggestion .ajaxloader")
+       form = $(this);
+        //ejecutar el contenido del archivo ajax
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            //dataType: 'JSON',
+            beforeSend:function(){
+                $(domloading).html("Cargando...");
+            },
+            error:function(data,tipo,error){
+                $(domloading).html("Ocurrio un error, favor intentar de nuevo");
+            },
+            success: function(data){
+                if (data.return){
+                    $(form)[0].reset();
+                    $(domloading).html("La sugerencia ha sido enviada, Gracias :D");
+                    $(domloading).fadeIn();
+                }
+            }
+        });
+        return false; 
+        
+    });
+    
+    
     //area para la listas de las companias
     if ($("#areacompaniesmanager").length){
         $("#areacompaniesmanager").ready(function(){
@@ -15,9 +67,18 @@ $(document).ready(function(){
         });
         
     }
+    
+    
+    //area para las listas de las solicitudes de pasantias
+    if ($("#arearequestmanager").length){
+        $("#arearequestmanager").ready(function(){
+            loadajaxcontent('views/modules/RequestLists.php', 'get','',$('.ajaxloader'),$("#arearequestmanager"));
+        });
+        
+    }
     /* area de para la lista de empleados**/
     
-        if( $("#areaemployeesmanager").length)
+    if( $("#areaemployeesmanager").length)
     {
         $("#areaemployeesmanager").ready( function()
         {            
@@ -56,7 +117,7 @@ $(document).ready(function(){
             fisrtMsg:" La clave debe contener mas de 7 caracteres",
             imageBad:"resources/bad.gif",
             imageOk:"resources/ok.gif"
-            } );
+        } );
     }
    
     /************************************************************************/
@@ -86,11 +147,12 @@ $(document).ready(function(){
                 dataType: 'JSON',
                 beforeSend:function(){
                     $(domloading).html("Cargando...");
-                },error:function(data,tipo,error){
+                },
+                error:function(data,tipo,error){
                     $(domloading).html("Ocurrio un error, favor intentar de nuevo");
                 },
                 success: function(data){
-                   $(domloading).html("");
+                    $(domloading).html("");
                     if (!data['return']) {
                         alert('login incorrecto');
                     }else
@@ -130,18 +192,18 @@ $(document).ready(function(){
             return false;
         }
         if( $(frmid  + "#telefono2").val() != "" ){
-        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
-            alert("El telefono2 es incorrecto");
-            $(frmid  + "#telefono2").focus();
-            return false;
-        }
+            if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
+                alert("El telefono2 es incorrecto");
+                $(frmid  + "#telefono2").focus();
+                return false;
+            }
         }
         if( $(frmid  + "#celular").val() != "" ){
-        if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
-            alert("El celular es requerido o es incorrecto");
-            $(frmid  + "#celuar").focus();
-            return false;
-        }
+            if (!(/[0-9]+\-[0-9]+\-[0-9]+/.test($(frmid  + "#telefono2").val()))) {
+                alert("El celular es requerido o es incorrecto");
+                $(frmid  + "#celuar").focus();
+                return false;
+            }
         }
         if ($(frmid  + "#carrera").val() == "0") {
             alert("La carrera en la que pertenece el estudiante es requerida");
@@ -164,55 +226,100 @@ $(document).ready(function(){
                 dataType: "JSON",
                 beforeSend : function()
                 {
-                  $(".ajaxloader").html( "Cargando..." );
-                },                
+                    $("#frmregister .ajaxloader").html( "Cargando..." );
+                }, 
+                error: function(data,type,error){
+                    $("#frmregister .ajaxloader").html( "" );
+                    
+                },
                 success: function( data )
                 {
-                    $(".ajaxloader").html( "" );
+                    $("#frmregister .ajaxloader").html( "" );
                     if( data.return ){
-                    alert( "El Usuario ha sido Actualizado correctamente" );                    
-                    $("#frmregister")[0].reset();
-                    $("span").find("p").remove();
-                    $(".ajaxredirect").click();
+                        alert( "El Usuario ha sido Actualizado correctamente" );                    
+                        $("#frmregister")[0].reset();
+                        $("span").find("p").remove();
+                        $(".ajaxredirect").click();
                     }
                     else                    
-                    alert( "El Usuario no ha sido Actualizado , favor intentelo nuevamente" );
+                        alert( "El Usuario no ha sido Actualizado , favor intentelo nuevamente" );
                 }
             });            
         }
         else{
             e.preventDefault();
-        if(confirm("Esta todo correcto?")){
-            $.ajax({
-                url: $(this).attr( 'action' ),
-                type: $(this).attr( 'method' ),
-                data: $(this).serialize(),
-                dataType: "JSON",
-                beforeSend : function()
-                {
-                  $(".ajaxloader").html( "Cargando..." );
-                },
-                success: function( data )
-                {
-                    $(".ajaxloader").html( "" );
-                    if( data.return ){
-                    alert( "El Usuario ha sido agregado correctamente" );
-                    $("#frmregister")[0].reset();
-                    $("span").find("p").remove();
-                    $(".ajaxredirect").click();
+            if(confirm("Esta todo correcto?")){
+                $.ajax({
+                    url: $(this).attr( 'action' ),
+                    type: $(this).attr( 'method' ),
+                    data: $(this).serialize(),
+                    //dataType: "JSON",
+                    beforeSend : function()
+                    {
+                        $("#frmregister .ajaxloader").html( "Cargando..." );
+                    },
+                    error:function(data,type,error){
+                        $("#frmregister .ajaxloader").html("Problema en el registro");
+                        alert(error);
+                    },
+                    success: function( data )
+                    {
+                        $("#frmregister .ajaxloader").html( "" );
+                        if( data.return ){
+                            alert( "El Usuario ha sido agregado correctamente" );
+                            $("#frmregister")[0].reset();
+                            $("span").find("p").remove();
+                            $(".ajaxredirect").click();
+                        }
+                        else
+                            alert( "El Usuario no ha sido agregado , favor intentelo nuevamente" );
                     }
-                    else
-                    alert( "El Usuario no ha sido agregado , favor intentelo nuevamente" );
-                }
-            });
+                });
   
-        }
+            }
         }
         return false;
     });
     
-/******************************formularios*******************************/
-/************************************************************************/
+    /******************************formularios*******************************/
+    /************************************************************************/
+
+    $(".soliPasantia").click(function(){
+        /**
+    *id de la solicitud de la passantia
+    **/
+        var idsol = $(this).attr('value');
+        var DOMajaxloading = $("span[name='ajaxresSoliPasantia[" + idsol +"]']");
+        if (confirm("Desea solicitar esta pasantia?")){
+            $.ajax({
+                url: $(this).attr( 'href' ),
+                type: 'get',
+                data: $(this).serialize(),
+                //dataType: "JSON",
+                beforeSend : function()
+                {
+                    $(DOMajaxloading).html( "Cargando..." );
+                },
+                success: function( data )
+                {
+                    $(DOMajaxloading).html( "" );
+                    alert(data);
+                    /*if( data.return ){
+                        alert("La solicitud se ha enviado correctamente, esperar a que los operadores aprueben su solicitud");
+                    }
+                    else{
+                        alert(data.msg);
+                    }*/
+                        
+                }
+            });
+       
+        }
+        return false; 
+    
+    });
+
+
 });
 
 

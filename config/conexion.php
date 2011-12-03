@@ -28,7 +28,7 @@ class conexion {
     /**
      * @var static $link: contiene el enlace de la base de datos
      */
-    static $link;
+    var $link;
 
     
     /**
@@ -50,9 +50,9 @@ class conexion {
      * @return boolean si se realizo la conexion o no
      */
     function connect() {
-        self::$link = mysql_connect($this->host, $this->username, $this->password);
-        if (self::$link) {
-            if (!mysql_select_db($this->dbname, self::$link))
+        $this->link = mysql_connect($this->host, $this->username, $this->password);
+        if ($this->link) {
+            if (!mysql_select_db($this->dbname, $this->link))
                 return false;
         }else
             return false;

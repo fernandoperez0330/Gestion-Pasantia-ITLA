@@ -69,8 +69,8 @@ abstract class Model {
      * 
      */
     public function __destruct() {
-        if (isset(conexion::$link) && is_resource(conexion::$link)) {
-            mysql_close(conexion::$link);
+        if (isset($this->con->link) && is_resource($this->con->link)) {
+            mysql_close($this->con->link);
         }
     }
 

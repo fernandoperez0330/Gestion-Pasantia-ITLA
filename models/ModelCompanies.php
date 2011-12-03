@@ -22,12 +22,12 @@ class ModelCompanies extends Model {
         
         $query = "INSERT INTO {$this->con->prefTable}empresas(NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO) ".
                  "VALUES('{$model['nombre']}','{$model['descripcion']}','{$model['direccion']}','{$model['telefono1']}','{$model['telefono2']}','{$model['correo']}')";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link) == 0) return false;
+        if (mysql_affected_rows($this->con->link) == 0) return false;
         else return true;
     }
 
@@ -38,7 +38,7 @@ class ModelCompanies extends Model {
         if(!$result){
             return false;
         }
-        if (mysql_affected_rows(conexion::$link) == 0) return false;
+        if (mysql_affected_rows($this->con->link) == 0) return false;
         else return true;
     }
 
@@ -63,7 +63,7 @@ class ModelCompanies extends Model {
         }
         $where = $where != "" ? "WHERE $where" : "";
         $query = "SELECT ID,NOMBRE,DESCRIPCION,DIRECCION,TELEFONO1,TELEFONO2,CORREO FROM {$this->con->prefTable}empresas $where";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
             return false;
         }
@@ -86,12 +86,12 @@ class ModelCompanies extends Model {
         $model['correo']= htmlentities($model['correo']);
         
         $query = "UPDATE {$this->con->prefTable}EMPRESAS SET NOMBRE = '{$model['nombre']}',DESCRIPCION = '{$model['descripcion']}',DIRECCION='{$model['direccion']}',TELEFONO1='{$model['telefono1']}',TELEFONO2='{$model['telefono2']}',CORREO='{$model['correo']}' WHERE ID={$model['id']}";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link) == 0) return false;
+        if (mysql_affected_rows($this->con->link) == 0) return false;
         else return true;
     }
 }

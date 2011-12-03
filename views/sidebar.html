@@ -6,10 +6,12 @@
         foreach($arrInternships as $internship){
         ?>
         <h4><?=$internship['NOMBRE']?></h4>
-        <h5>January 1st, 2010</h5>
         <?php
         if ($count++  == 2) break;
         }
+        ?>
+        <a href="internships.php">Ver todas las pasantias</a>
+        <?php
     }else echo "No hay ofertas de pasantias";
     ?>
     <h3>Enlaces</h3>

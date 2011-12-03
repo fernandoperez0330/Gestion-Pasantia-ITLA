@@ -40,7 +40,7 @@ $meta['description'] = "";
             <div id="site_content">
                 <?php include("views/sidebar.html"); ?>
                 <div id="content">
-                    <!--aqui va el contenido dinamico-->
+                    <?php include("views/modules/aboutus.html");?>
                 </div>
                 <?php include("views/socialnetworks.html"); ?>
             </div>

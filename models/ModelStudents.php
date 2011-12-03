@@ -17,24 +17,25 @@ class ModelStudents extends Model{
         
         $modelUser = new ModelUsers();
         
-                //depurar los datos antes de ponerlo en la consulta
-        $model[ 'nombre' ] = htmlentities($model[ 'nombre' ]);
-        $model[ 'correo' ] = htmlentities( $model[ 'correo' ] );
-        $model[ 'password' ] = htmlentities( $model[ 'password' ] );
-        $model[ 'telefono' ] = htmlentities( $model[ 'telefono' ] );
-        $model[ 'telefono2' ] = htmlentities( $model[ 'telefono2' ] );
-        $model[ 'celular' ] = htmlentities( $model[ 'celular' ] );
-        $model[ 'carrera' ] = htmlentities( $model[ 'carrera' ] );
+        //depurar los datos antes de ponerlo en la consulta
+        $model[ 'nombre' ] = htmlentities(strip_tags($model[ 'nombre' ]));
+        $model[ 'correo' ] = htmlentities( strip_tags($model[ 'correo' ] ));
+        $model[ 'password' ] = htmlentities( strip_tags($model[ 'password' ] ));
+        $model[ 'telefono' ] = htmlentities( strip_tags($model[ 'telefono' ] ));
+        $model[ 'telefono2' ] = htmlentities( strip_tags($model[ 'telefono2' ] ));
+        $model[ 'celular' ] = htmlentities( strip_tags($model[ 'celular' ] ));
+        $model[ 'carrera' ] = $model[ 'carrera' ] + 0;
                 
         
         $query = "INSERT INTO {$this->con->prefTable}estudiantes (NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID) ".
                  "VALUES('{$model['nombre']}','{$model['correo']}','{$model['telefono']}','{$model['telefono2']}','{$model['celular']}',{$model['carrera']})";
-        $result = mysql_query($query,conexion::$link);
-        if(!$result){                                
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+
+        $result = mysql_query($query,$this->con->link);
+        if(!$result){
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         {
             $idStudents = mysql_insert_id( conexion::$link );
             
@@ -65,7 +66,7 @@ class ModelStudents extends Model{
         if(!$result){
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         return true;
         return  false;        
     }
@@ -103,7 +104,7 @@ class ModelStudents extends Model{
         }
         $where = $where != "" ? "WHERE $where" : "";
         $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}estudiantes $where";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
             return false;
         }
@@ -112,7 +113,6 @@ class ModelStudents extends Model{
         if ($numRows != 0){
             while ($row = mysql_fetch_assoc($result)){
                 $arrStudents[] = $row;
-                
                 $careers = $modelCareers->find( $arrStudents[ $i ][ 'CARRERA_ID' ] );
                 $arrStudents[ $i ][ 'CARRERA_ID' ] = $careers[ 'NOMBRE' ];
                 ++$i;
@@ -123,21 +123,21 @@ class ModelStudents extends Model{
 
     public function update($model) {
         
-        $model[ 'nombre' ] = htmlentities($model[ 'nombre' ]);
-        $model[ 'correo' ] = htmlentities( $model[ 'correo' ] );
-        $model[ 'password' ] = htmlentities( $model[ 'password' ] );
-        $model[ 'telefono' ] = htmlentities( $model[ 'telefono' ] );
-        $model[ 'telefono2' ] = htmlentities( $model[ 'telefono2' ] );
-        $model[ 'celular' ] = htmlentities( $model[ 'celular' ] );
-        $model[ 'carrera' ] = htmlentities( $model[ 'carrera' ] );
+        $model[ 'nombre' ] = htmlentities(strip_tags($model[ 'nombre' ]));
+        $model[ 'correo' ] = htmlentities( strip_tags($model[ 'correo' ] ));
+        $model[ 'password' ] = htmlentities( strip_tags($model[ 'password' ] ));
+        $model[ 'telefono' ] = htmlentities( strip_tags($model[ 'telefono' ] ));
+        $model[ 'telefono2' ] = htmlentities( strip_tags($model[ 'telefono2' ] ));
+        $model[ 'celular' ] = htmlentities( strip_tags($model[ 'celular' ] ));
+        $model[ 'carrera' ] = $model[ 'carrera' ] + 0;
         
         $query = "UPDATE {$this->con->prefTable}estudiantes SET NOMBRE = '{$model['nombre']}',CORREO = '{$model[ 'correo' ]}',TELEFONO='{$model[ 'telefono' ]}',TELEFONO2='{$model[ 'telefono2' ]}',CELULAR='{$model[ 'celular' ]}',CARRERA_ID={$model[ 'carrera' ]} WHERE ID={$model['id']}";
-        $result = mysql_query($query,conexion::$link);
+        $result = mysql_query($query,$this->con->link);
         if(!$result){
-            Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
+            Utils::logQryError($query, mysql_error($this->con->link),__FUNCTION__,__CLASS__);
             return false;
         }
-        if (mysql_affected_rows(conexion::$link))
+        if (mysql_affected_rows($this->con->link))
         return true;
         return  false;          
     }

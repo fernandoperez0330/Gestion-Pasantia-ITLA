@@ -40,6 +40,7 @@ $meta['description'] = "";
     </head>
     <body>
         <div id="wrap">
+            <div id="loadingajax"><img src="resources/ajax-loader.gif" width="14"/>&nbsp;Cargando...</div>
             <div id="header">
                 <?php
                 //area del logo

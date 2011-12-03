@@ -47,6 +47,7 @@ if( isset( $_GET[ 'del' ] ) )
     <body>
         <div id="wrap">
             <div id="header">
+                <div id="loadingajax"><img src="resources/ajax-loader.gif" width="14"/>&nbsp;Cargando...</div>
                 <?php
                 //area del logo
                 include("views/logo.html");

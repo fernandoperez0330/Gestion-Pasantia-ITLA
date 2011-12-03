@@ -2,7 +2,6 @@
 require("include/main.inc.php");
 require("models/Model.php");
 require("models/ModelInternship.php");
-
 $model = new ModelInternship();
 $arrInternships = $model->findsome(array());
 
@@ -38,6 +37,7 @@ $meta['description'] = "";
             </div>
             <div id="site_content">
                     <h1>Pasantias activas</h1>
+                    <p>Lista de pasantias activas del sistema</p>
                     <div id="arealistinternships">
                         <?php
                         foreach($arrInternships as $internship){
@@ -52,7 +52,8 @@ $meta['description'] = "";
                             <ul>
                                 <li><?=$internship['EMPRESA']?></li>
                                 <li><?=$carreras?></li>
-                                <li><a href="">Solicitar</a></li>
+                                <li><a href="ajax.internships.php?id=<?=$internship['ID']?>" value="<?=$internship['ID']?>" class="soliPasantia">Solicitar</a>
+                                    <span name="ajaxresSoliPasantia[<?=$internship['ID']?>]">&nbsp;</span></li>
                             </ul>
                         </div>   
                         <?php 
