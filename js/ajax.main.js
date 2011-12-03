@@ -327,7 +327,7 @@ $(document).ready(function(){
                 success: function( data )
                 {                            
                     $(".ajaxloader").html( "" );
-                    if( data.return )
+                    if( !data.return )
                     {
                         alert( "El empleado ha sido agregado exitosamente" );
                         $(".ajaxredirect").click();

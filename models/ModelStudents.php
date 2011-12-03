@@ -37,7 +37,7 @@ class ModelStudents extends Model{
         }
         if (mysql_affected_rows($this->con->link))
         {
-            $idStudents = mysql_insert_id( conexion::$link );
+            $idStudents = mysql_insert_id( $this->con->link );
             
             $modelUserData = array();
             $modelUserData[ 'usuario' ] = $model[ 'correo' ];
@@ -46,7 +46,7 @@ class ModelStudents extends Model{
             
             if( $modelUser->add( $modelUserData ) )
             {
-                $idUSer = mysql_insert_id( conexion::$link );
+                $idUSer = mysql_insert_id( $this->con->link );
                 $query = "INSERT INTO usuarios_tipos (`USUARIO_ID` ,`TIPO` ,`TIPO_ID`)VALUES ('{$idUSer}', '2', '{$idStudents}')";
                 mysql_query( $query );
               return true;

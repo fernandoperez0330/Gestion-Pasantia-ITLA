@@ -43,7 +43,7 @@ include ("../jstagsforajax.html");
     <a href="views/modules/EMployeesList.php" class="ajaxredirect">Gestion de Empleados</a> - 
     <strong>Registro de Empleados</strong>
 </p>
-<h3>Registro de empresas</h3>
+<h3>Registro de empleados</h3>
 <p>Breve instrucci&oacute;n para agregar un Empleado al sistema</p>
 <form action="ajax.employeesEditor.php" name="frmEmployeesEditor" id="frmEmployeesEditor" method="post">
     <?=(isset($arrData['id'])) ? "<input type=\"hidden\" name=\"id\" id=\"id\" value=\"{$arrData['id']}\"/>" : "";?>
