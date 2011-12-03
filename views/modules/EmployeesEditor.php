@@ -35,6 +35,7 @@ else
     $btnSubmit['title'] = "Agregar Empleado";
 }
 include ("../jstagsforajax.html");
+    
 
 ?>
 
@@ -59,6 +60,11 @@ include ("../jstagsforajax.html");
     <div>
         <input type="text" name="correo" id="correo" value="<?=$arrData['correo'];?>"/>        
     </div>
+    </div>
+        <h4>Password</h4>
+    <div>
+        <input type="password" name="password" id="password" value=""/>        
+    </div>    
         <h4>Telefono</h4>
     <div>
         <input type="text" name="telefono" id="telefono" value="<?=$arrData['telefono'];?>"/>        

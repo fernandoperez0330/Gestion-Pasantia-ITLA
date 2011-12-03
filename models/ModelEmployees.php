@@ -34,7 +34,7 @@ class ModelEmployees extends Model{
             
             $modelUserData = array();
             $modelUserData[ 'usuario' ] = $model[ 'correo' ];
-            $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'clave' ] );
+            $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'password' ] );
             $modelUserData[ 'tipo' ] = 1;
             
             if( $modelUser->add( $modelUserData ) )

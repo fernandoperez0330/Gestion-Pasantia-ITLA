@@ -21,6 +21,15 @@ $(document).ready(function(){
             return false;
         });
     }
+    
+        if( $("#password").length )
+    {
+        $( "#password" ).passStrength({
+            fisrtMsg:" La clave debe contener mas de 7 caracteres",
+            imageBad:"resources/bad.gif",
+            imageOk:"resources/ok.gif"
+        } );
+    }
 
 
     /********************formularios********************/
@@ -282,6 +291,12 @@ $(document).ready(function(){
             $("#correo").focus();
             alert( "El correo es requerido o es incorrecto" );
             return false; 
+        }
+        if( $("#password").val().length < 8 )
+        {
+            alert("El password es requerido o es incorrecto");
+            $("#password").focus();
+            return false;            
         }
         if( !(/[0-9]+\-[0-9]+\-[0-9]+/.test($("#telefono").val())))
         {
