@@ -37,8 +37,9 @@ include("../jstagsforajax.html");
                     <td><?=$request['PASANTIA']?></td>
                     <td><?=COnfig::$arrEstatus[$request['ESTATUS']];?></td>
                     <td>
-                        <a href="views/modules/RequestsEditor.php?id=<?=$request['ID']; ?>" class="ajaxredirect">Modificar</a>
-                        <a href="requestsManager.php?del=<?=$request['ID']?>" class="eliminar">Eliminar</a>
+                        <a target="_blank" href="pdf.letterinternship.php?id=<?=$request['ID']?>" title="Generar carte de pasantia">Carta</a><br/>
+                        <a href="views/modules/RequestsEditor.php?id=<?=$request['ID']; ?>" class="ajaxredirect">Modificar</a><br/>
+                        <a href="requestsManager.php?del=<?=$request['ID']?>" class="eliminar">Eliminar</a><br/>
                     </td>
                 </tr>    
                 <?php
