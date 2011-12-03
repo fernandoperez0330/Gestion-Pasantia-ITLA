@@ -40,8 +40,9 @@ include("../jstagsforajax.html");
                     <td><?=$carrera?></td>
                     <td><?= $internship['FECHA_CREACION']; ?></td>
                     <td>
-                        <a href="internshipsManager.php?del=<?= $internship['ID']; ?>" class="eliminar">Eliminar</a>
                         <a href="views/modules/InternshipsEditor.php?id=<?= $internship['ID']; ?>" class="ajaxredirect">Actualizar</a>
+                        <a href="pdf.letterintership.php">Hacer carta de solicitud</a>
+                        <a href="internshipsManager.php?del=<?= $internship['ID']; ?>" class="eliminar">Eliminar</a> <br/>
                     </td>
                 </tr>    
                 <?php

@@ -60,9 +60,10 @@ class ModelRequests extends Model{
             $where .= $where == "" ? "$field = $value" : " AND $field = $value";
         }
         $where = $where != "" ? "WHERE $where" : "";
-        $query = "SELECT S.ID,S.ESTUDIANTE_ID,S.PASANTIA_ID,S.ESTATUS,E.NOMBRE ESTUDIANTE,P.NOMBRE PASANTIA FROM {$this->con->prefTable}solicitudes S ".
+        $query = "SELECT S.ID,S.ESTUDIANTE_ID,S.PASANTIA_ID,S.ESTATUS,E.NOMBRE ESTUDIANTE,P.NOMBRE PASANTIA,EM.NOMBRE EMPRESA FROM {$this->con->prefTable}solicitudes S ".
                 "INNER JOIN {$this->con->prefTable}estudiantes E on S.ESTUDIANTE_ID = E.ID ".
                 "INNER JOIN {$this->con->prefTable}pasantias P on s.PASANTIA_ID = P.ID ".
+                "INNER JOIN {$this->con->prefTable}empresas EM on p.empresa_id = EM.ID ".
                  "$where";
         $result = mysql_query($query, $this->con->link);
         if (!$result) {
