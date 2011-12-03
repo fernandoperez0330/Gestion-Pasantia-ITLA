@@ -30,19 +30,26 @@ class ModelStudents extends Model{
         $query = "INSERT INTO {$this->con->prefTable}estudiantes (NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID) ".
                  "VALUES('{$model['nombre']}','{$model['correo']}','{$model['telefono']}','{$model['telefono2']}','{$model['celular']}',{$model['carrera']})";
         $result = mysql_query($query,conexion::$link);
-        if(!$result){
+        if(!$result){                                
             Utils::logQryError($query, mysql_error(conexion::$link),__FUNCTION__,__CLASS__);
             return false;
         }
         if (mysql_affected_rows(conexion::$link))
         {
+            $idStudents = mysql_insert_id( conexion::$link );
+            
             $modelUserData = array();
             $modelUserData[ 'usuario' ] = $model[ 'correo' ];
             $modelUserData[ 'clave' ] = Utils::encryptPassword( $model[ 'password' ] );
             $modelUserData[ 'tipo' ] = 2;
             
             if( $modelUser->add( $modelUserData ) )
+            {
+                $idUSer = mysql_insert_id( conexion::$link );
+                $query = "INSERT INTO usuarios_tipos (`USUARIO_ID` ,`TIPO` ,`TIPO_ID`)VALUES ('{$idUSer}', '2', '{$idStudents}')";
+                mysql_query( $query );
               return true;
+            }
             else
               return false;
     
@@ -65,6 +72,9 @@ class ModelStudents extends Model{
 
     public function find($prkey) {
         $prkey = $prkey + 0;
+        
+        $modelCareers = new ModelCareers();
+        
         $query = "SELECT ID,NOMBRE,CORREO,TELEFONO,TELEFONO2,CELULAR,CARRERA_ID FROM {$this->con->prefTable}estudiantes WHERE ID=$prkey";
         $result = mysql_query($query);
         if(!$result){
@@ -72,7 +82,12 @@ class ModelStudents extends Model{
         }
         $students = array(); 
         $numRows = mysql_num_rows($result);
-        if ($numRows != 0) $students = mysql_fetch_assoc ($result);
+        if ($numRows != 0)
+        {
+            $students = mysql_fetch_assoc ($result);
+                $careers = $modelCareers->find( $students[ 'CARRERA_ID' ] );
+                $students[ 'CARRERA_NOMBRE' ] = $careers[ 'NOMBRE' ];            
+        }
         return $students;        
     }
 

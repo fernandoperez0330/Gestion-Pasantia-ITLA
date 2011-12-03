@@ -10,6 +10,12 @@ class ModelUsers extends Model {
     public function __construct() {
         parent::__construct();
     }
+    private $affectedId=0;
+    
+    public function getAffectedId()
+    {
+        return ( $this->affectedId );
+    }
 
     public function add($model) {
         //depurar los datos antes de ponerlo en la consulta
@@ -20,7 +26,11 @@ class ModelUsers extends Model {
         $query = "INSERT INTO {$this->con->prefTable}usuarios(USUARIO,CLAVE) " .
                 "VALUES('{$model['usuario']}','{$model['clave']}')";
         $result = mysql_query($query, conexion::$link);
+        
         if (!$result) {
+            
+            $this->affectedId = mysql_insert_id( conexion::$link );
+            
             Utils::logQryError($query, mysql_error(conexion::$link), __FUNCTION__, __CLASS__);
             return false;
         }
